@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameClearPanel : StageClearPanel
 {
-    GameManager gameManager;
+    GameManager_Legacy gameManager;
     GameObject endingCreditPanel;
 
     float endingCreditCount;
@@ -17,7 +17,7 @@ public class GameClearPanel : StageClearPanel
     protected override void Start()
     {
         base.Start();
-        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager_Legacy>();
     }
 
     private void OnEnable()

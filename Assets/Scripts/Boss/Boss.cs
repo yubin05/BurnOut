@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    GameManager gameManager;
+    GameManager_Legacy gameManager;
 
     protected Rigidbody2D rigid;
     [HideInInspector] public SpriteRenderer render;
@@ -45,7 +45,7 @@ public class Boss : MonoBehaviour
 
     protected virtual void Awake()
     {
-        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager_Legacy>();
 
         rigid = GetComponent<Rigidbody2D>();
         render = GetComponent<SpriteRenderer>();

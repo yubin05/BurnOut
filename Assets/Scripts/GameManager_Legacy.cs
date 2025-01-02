@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 using DG.Tweening;
 
-public class GameManager : MonoBehaviour
+public class GameManager_Legacy : MonoBehaviour
 {
     GameObject player;
     PlayerController player_script;
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
             gameOverUI_text.color = gameOverUI_textColor;
         }
 
-        // fade in È¿°ú
+        // fade in È¿ï¿½ï¿½
         //Image[] gameOverUI_images = gameOverUI.GetComponentsInChildren<Image>();
         foreach (Image gameOverUI_image in gameOverUI_images) gameOverUI_image.DOFade(1, gameOverUIFadeInTime);
         //Text[] gameOverUI_texts = gameOverUI.GetComponentsInChildren<Text>();
@@ -112,14 +112,14 @@ public class GameManager : MonoBehaviour
         player.GetComponentInChildren<PlayerHealthUI>().setMaxHealthUI(player_inital_max_health);
         player_script.Vincible();
 
-        isGameOver = false;     // °ÔÀÓ ¿À¹ö ÇÃ·¡±× ÇØÁ¦ - Àç½ÃÀÛ ½Ã, °ÔÀÓ¸Å´ÏÀú´Â ÃÊ±âÈ­ µÇÁö ¾Ê±â ¶§¹®
+        isGameOver = false;     // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½Ó¸Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     // this method called by other scripts in need of loading main menu scene
     // because prevent overlap DontDestroyOnLoad object
     public void LoadMainMenuScene()
     {
-        isGameOver = false;     // °ÔÀÓ ¿À¹ö ÇÃ·¡±× ÇØÁ¦ - Àç½ÃÀÛ ½Ã, °ÔÀÓ¸Å´ÏÀú´Â ÃÊ±âÈ­ µÇÁö ¾Ê±â ¶§¹®
+        isGameOver = false;     // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½Ó¸Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         Destroy(gameOverUI); Destroy(playerUI);
         SceneManager.LoadScene(0);

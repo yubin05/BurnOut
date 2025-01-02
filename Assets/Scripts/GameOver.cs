@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
-    GameManager gameManager;
+    GameManager_Legacy gameManager;
 
     private void Awake()
     {
-        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager_Legacy>();
     }
 
     public void Restart()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    GameManager gameManager;
+    GameManager_Legacy gameManager;
 
     Rigidbody2D rigid;
     SpriteRenderer render;
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager_Legacy>();
 
         // set player health and max_health
         //health = 50;
