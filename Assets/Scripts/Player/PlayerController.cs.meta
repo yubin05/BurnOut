@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3bf7818d535e9a845a0cb10ebcd76b7a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - audioWalk: {fileID: 8300000, guid: ee00faf8b8432ff40a6e008c84d5ae59, type: 3}
+  - audioRun: {fileID: 8300000, guid: 1a631ada4ecd9cf49a88b135aa70c396, type: 3}
+  - audioJump: {fileID: 8300000, guid: 5a18f2ef7db9f1943bedda13ff85ee89, type: 3}
+  - audioLanding: {fileID: 8300000, guid: 5329b99920a6642409627b29d379aff7, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
