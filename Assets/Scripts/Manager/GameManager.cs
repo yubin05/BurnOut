@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class GameManager : GlobalSingleton<GameManager>
 {
@@ -26,5 +28,18 @@ public class GameManager : GlobalSingleton<GameManager>
             default: languageStr = textInfo.NameKr; break;  // 한국어
         }
         Debug.Log(languageStr);
+    }
+
+    // 언어 변경
+    public void ChanageLanauage(TextInfo.LanguageTypes language)
+    {
+        GameApplication.Instance.GameModel.ClientData.PlayerLanguage.language = language;
+
+        var fileName = GameApplication.Instance.GameModel.ClientData.PlayerLanguageFileName;
+        var extension = GameApplication.Instance.GameModel.JsonTable.Extension;
+
+        var path = Application.persistentDataPath + "/" + DataTablePath.JsonFilePath + fileName + extension;
+        var dataStr = "[" + JsonConvert.SerializeObject(GameApplication.Instance.GameModel.ClientData.PlayerLanguage) + "]";
+        File.WriteAllText(path, dataStr);
     }
 }

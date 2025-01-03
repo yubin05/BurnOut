@@ -4,16 +4,16 @@ using UnityEngine;
 // CSV, Json 등의 데이터를 관리하는 클래스
 public class GameModel
 {
-    public CSVDataContainer PresetData { get; } = new CSVDataContainer();
-    public CSVDataContainer RuntimeData { get; } = new CSVDataContainer();
+    public CSVDataContainer PresetData { get; } = new CSVDataContainer();   // 사전에 정의된 데이터
+    public CSVDataContainer RuntimeData { get; } = new CSVDataContainer();  // 런타임 중, 추가되는 데이터
 
-    public JsonDataContainer JsonTable { get; } = new JsonDataContainer();
+    public JsonDataContainer JsonTable { get; } = new JsonDataContainer();  // Json 데이터
     public ClientData ClientData { get; private set; } = new ClientData();
     
     public void Init()
     {
         LoadCSV<TextInfo>("TextList");
-        ClientData = LoadJson<ClientData>("ClientData");
+        ClientData.PlayerLanguage = LoadJson<PlayerLanguage>(ClientData.PlayerLanguageFileName);
     }
 
     private void LoadCSV<T>(string _fileName) where T : Data
@@ -38,7 +38,7 @@ public class GameModel
         var filePath = Application.persistentDataPath + "/" + DataTablePath.JsonFilePath;
         if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
 
-        var file = filePath + _fileName + ".json";
+        var file = filePath + _fileName + JsonTable.Extension;
         if (!File.Exists(file))
         {
             var dataResource = Resources.Load<TextAsset>(DataTablePath.JsonFilePath + _fileName);

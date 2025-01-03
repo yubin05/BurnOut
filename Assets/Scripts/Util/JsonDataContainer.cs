@@ -12,6 +12,8 @@ public class JsonDataContainer
 {
     private Dictionary<string, List<Data>> dataTables = new Dictionary<string, List<Data>>();
 
+    public string Extension => ".json";
+
     public void LoadData<T>(string tableName, string path) where T : Data
     {
         var jsonAsset = File.ReadAllText(path);
