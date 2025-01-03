@@ -1,1 +1,1 @@
-# graduate_project
+# BurnOut
