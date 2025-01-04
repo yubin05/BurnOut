@@ -49,6 +49,13 @@ public class CSVDataContainer
         data.TableModel = dataTable;
         dataTable.AddData(data);
     }
+    
+    public void RemoveData(string dataTableName, Data data)
+    {
+        if (!dataTables.ContainsKey(dataTableName)) return;
+
+        dataTables[dataTableName].RemoveData(data);
+    }
 
     public List<T> GetData<T>(string _file)
     {
@@ -91,5 +98,10 @@ public class CSVDataContainer
     public List<string> GetCSVLines(string _file)
     {
         return Regex.Split(_file, @"\r\n|\n\r|\n|\r").ToList();
+    }
+
+    public void Clear()
+    {
+        dataTables.Clear();
     }
 }

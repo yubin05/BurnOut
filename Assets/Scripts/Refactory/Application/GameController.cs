@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // 게임 컨트롤러를 모아놓은 클래스
@@ -22,21 +23,20 @@ public class BaseController
         GameModel = gameModel;
     }
 
-    public virtual K Spawn<T, K>(int id, Transform parent=null) where T : Data where K : PoolObject
+    protected virtual K Spawn<T, K>(int id, Transform parent) where T : Data where K : PoolObject
     {
         T data = GameModel.PresetData.ReturnData<T>(typeof(T).Name, id).Clone() as T;
         GameModel.RuntimeData.AddData(typeof(T).Name, data);
 
-        // 나중에 Pooling으로 변경해야 함
-        K obj = new GameObject($"{typeof(T).Name}_{id}").AddComponent<K>();
+        K obj = Pooling.Instance.CreatePoolObject<K>();
         obj.Init(data);
         obj.transform.parent = parent;
 
         data.OnDataRemove = null;
-        data.OnDataRemove += (data) => 
+        data.OnDataRemove += (_data) => 
         {
-            // Pooling 추가되면 구조 변경해야 함
-            GameObject.Destroy(obj.gameObject);
+            GameModel.RuntimeData.RemoveData(typeof(T).Name, _data);
+            Pooling.Instance.ReturnPoolObject(obj);
         };
         
         return obj;
@@ -48,5 +48,13 @@ public class SoundController : BaseController
 {
     public SoundController(GameModel gameModel) : base(gameModel)
     {
+    }
+
+    public K Spawn<T, K>(string fileName, Transform parent=null) where T : SoundInfo where K : SoundObject
+    {
+        var soundInfo = GameModel.PresetData.ReturnDatas<SoundInfo>(nameof(SoundInfo)).Where(x => x.Name == fileName).FirstOrDefault();
+        if (soundInfo == null) return null;
+
+        return Spawn<T, K>(soundInfo.Id, parent);
     }
 }

@@ -15,6 +15,7 @@ public class GameManager : GlobalSingleton<GameManager>
         Debug.Log(Application.persistentDataPath);
 
         GameApplication.Instance.Init();
+        Pooling.Instance.Init();
     }
 
     private void Start()
@@ -31,7 +32,7 @@ public class GameManager : GlobalSingleton<GameManager>
         Debug.Log(languageStr);
 
         // test
-        GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(1);
+        GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>("TestBGM");
     }
 
     private void Update()
@@ -44,7 +45,11 @@ public class GameManager : GlobalSingleton<GameManager>
         // test
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(2);
+            GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>("TestSFX");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Debug.Log(GameApplication.Instance.GameModel.RuntimeData.ReturnDatas<SoundInfo>(nameof(SoundInfo)).Length);
         }
     }
 

@@ -32,6 +32,14 @@ public class DataTable
         DataContainer.Add(data.Id, data);
     }
 
+    public void RemoveData(Data data)
+    {
+        var dataContainer = DataContainer.SingleOrDefault(x => x.Value == data);
+        if (dataContainer.Equals(default(KeyValuePair<int, Data>))) return; // null 체크
+
+        DataContainer.Remove(dataContainer.Key);
+    }
+
     public Data GetData(int id)
     {
         return DataContainer[id];
