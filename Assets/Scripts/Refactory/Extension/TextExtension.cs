@@ -137,9 +137,8 @@ public static class TextExtension
             {
                 switch (language)
                 {
-                    case TextInfo.LanguageTypes.English: default: returnCSVText = textInfo.NameEn; break;
-                    case TextInfo.LanguageTypes.Korean: returnCSVText = textInfo.NameKr; break;
-                    // case TextInfo.LanguageTypes.Japanese: returnCSVText = textInfo.NameJp; break;
+                    case TextInfo.LanguageTypes.Korean: default: returnCSVText = textInfo.NameKr; break;
+                    case TextInfo.LanguageTypes.English: returnCSVText = textInfo.NameEn; break;
                 }
                 break;
             }
@@ -147,9 +146,8 @@ public static class TextExtension
             {
                 switch (language)
                 {
-                    case TextInfo.LanguageTypes.English: default: returnCSVText = textInfo.DescriptionEn; break;
-                    case TextInfo.LanguageTypes.Korean: returnCSVText = textInfo.DescriptionKr; break;
-                    // case TextInfo.LanguageTypes.Japanese: returnCSVText = textInfo.DescriptionJp; break;
+                    case TextInfo.LanguageTypes.Korean: default: returnCSVText = textInfo.DescriptionKr; break;
+                    case TextInfo.LanguageTypes.English: returnCSVText = textInfo.DescriptionEn; break;
                 }
                 break;
             }

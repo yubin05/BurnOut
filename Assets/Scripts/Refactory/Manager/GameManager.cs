@@ -20,15 +20,18 @@ public class GameManager : GlobalSingleton<GameManager>
     private void Start()
     {
         // test
-        // var language = GameApplication.Instance.GameModel.ClientData.PlayerLanguage.language;
-        // var textInfo = GameApplication.Instance.GameModel.PresetData.ReturnData<TextInfo>(nameof(TextInfo), 1);
-        // string languageStr = "";
-        // switch (language)
-        // {
-        //     case TextInfo.LanguageTypes.English: languageStr = textInfo.NameEn; break;
-        //     default: languageStr = textInfo.NameKr; break;  // 한국어
-        // }
-        // Debug.Log(languageStr);
+        var language = GameApplication.Instance.GameModel.ClientData.PlayerLanguage.language;
+        var textInfo = GameApplication.Instance.GameModel.PresetData.ReturnData<TextInfo>(nameof(TextInfo), 1);
+        string languageStr = "";
+        switch (language)
+        {
+            case TextInfo.LanguageTypes.English: languageStr = textInfo.NameEn; break;
+            default: languageStr = textInfo.NameKr; break;  // 한국어
+        }
+        Debug.Log(languageStr);
+
+        // test
+        GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(1);
     }
 
     private void Update()
@@ -36,6 +39,12 @@ public class GameManager : GlobalSingleton<GameManager>
         if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.F4))
         {
             QuitGame();
+        }
+
+        // test
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(2);
         }
     }
 
