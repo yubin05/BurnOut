@@ -23,12 +23,12 @@ public class BaseController
         GameModel = gameModel;
     }
 
-    protected virtual K Spawn<T, K>(int id, Transform parent) where T : Data where K : PoolObject
+    public virtual K Spawn<T, K>(int id, Transform parent=null) where T : Data where K : PoolObject
     {
         T data = GameModel.PresetData.ReturnData<T>(typeof(T).Name, id).Clone() as T;
         GameModel.RuntimeData.AddData(typeof(T).Name, data);
 
-        K obj = Pooling.Instance.CreatePoolObject<K>();
+        K obj = Pooling.Instance.CreatePoolObject<K>(id);
         obj.Init(data);
         obj.transform.parent = parent;
 
@@ -36,7 +36,7 @@ public class BaseController
         data.OnDataRemove += (_data) => 
         {
             GameModel.RuntimeData.RemoveData(typeof(T).Name, _data);
-            Pooling.Instance.ReturnPoolObject(obj);
+            Pooling.Instance.ReturnPoolObject(id, obj);
         };
         
         return obj;
@@ -48,13 +48,5 @@ public class SoundController : BaseController
 {
     public SoundController(GameModel gameModel) : base(gameModel)
     {
-    }
-
-    public K Spawn<T, K>(string fileName, Transform parent=null) where T : SoundInfo where K : SoundObject
-    {
-        var soundInfo = GameModel.PresetData.ReturnDatas<SoundInfo>(nameof(SoundInfo)).Where(x => x.Name == fileName).FirstOrDefault();
-        if (soundInfo == null) return null;
-
-        return Spawn<T, K>(soundInfo.Id, parent);
     }
 }

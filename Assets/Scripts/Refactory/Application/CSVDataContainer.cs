@@ -22,11 +22,23 @@ public class CSVDataContainer
 
     public T ReturnData<T>(string dataTableName, int id) where T : Data
     {
+        if (!dataTables.ContainsKey(dataTableName))
+        {
+            Debug.LogWarning($"{dataTableName} 테이블이 존재하지 않습니다.");
+            return null;
+        }
+
         var dataTable = dataTables[dataTableName];
         return (T)dataTable.GetData(id);
     }
     public T[] ReturnDatas<T>(string dataTableName) where T : Data
     {
+        if (!dataTables.ContainsKey(dataTableName))
+        {
+            Debug.LogWarning($"{dataTableName} 테이블이 존재하지 않습니다.");
+            return null;
+        }
+        
         var dataTable = dataTables[dataTableName];
         return dataTable.GetDatas().Select(x => (T)x).ToArray();
     }

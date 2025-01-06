@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 // 오브젝트 풀링 관리하는 클래스
 public class Pooling : GlobalSingleton<Pooling>, IChangeScene
 {
-    private Dictionary<string, PoolContainer> poolContainers;
+    private Dictionary<int, PoolContainer> poolContainers;
 
     public void Init()
     {
-        poolContainers = new Dictionary<string, PoolContainer>();
+        poolContainers = new Dictionary<int, PoolContainer>();
 
         SceneManager.activeSceneChanged -= OnChangeScene;
         SceneManager.activeSceneChanged += OnChangeScene;
@@ -22,18 +22,18 @@ public class Pooling : GlobalSingleton<Pooling>, IChangeScene
     }
 
     // 풀링 오브젝트 꺼내오기
-    public K CreatePoolObject<K>() where K : PoolObject
+    public K CreatePoolObject<K>(int id) where K : PoolObject
     {
-        if (!poolContainers.ContainsKey(typeof(K).Name))
-            poolContainers.Add(typeof(K).Name, new PoolContainer());
+        if (!poolContainers.ContainsKey(id))
+            poolContainers.Add(id, new PoolContainer());
 
-        return poolContainers[typeof(K).Name].CreatePoolObject<K>();
+        return poolContainers[id].CreatePoolObject<K>(id);
     }
 
     // 풀링 오브젝트 반납
-    public void ReturnPoolObject<K>(K poolObject) where K : PoolObject
+    public void ReturnPoolObject<K>(int id, K poolObject) where K : PoolObject
     {
-        poolContainers[typeof(K).Name].ReturnPoolObject(poolObject);
+        poolContainers[id].ReturnPoolObject(poolObject);
     }
 }
 
@@ -52,14 +52,15 @@ public class PoolContainer
 
     // 여분의 오브젝트가 없거나 오브젝트를 모두 활성화 상태라면 새로 생성
     // 오브젝트를 활성화하여 생성 또는 꺼내온 오브젝트를 사용할 수 있도록 함
-    public K CreatePoolObject<K>() where K : PoolObject
+    public K CreatePoolObject<K>(int id) where K : PoolObject
     {
         var poolObject = poolObjects.FirstOrDefault(x => !x.Value.gameObject.activeSelf);
 
         K instance = null;
         if (poolObject.Equals(default(KeyValuePair<int, PoolObject>)))  // null 체크
         {
-            instance = new GameObject(typeof(K).Name).AddComponent<K>();
+            var path = GameApplication.Instance.GameModel.PresetData.ReturnData<PrefabInfo>(nameof(PrefabInfo), id).Path;
+            instance = GameObject.Instantiate(Resources.Load<K>(path));
             poolObjects.Add(++instanceId, instance);
         }
         else

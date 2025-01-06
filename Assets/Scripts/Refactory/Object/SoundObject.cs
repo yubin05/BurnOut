@@ -19,7 +19,6 @@ public class SoundObject : EntityObject
         
         var soundInfo = data as SoundInfo;
         
-        AudioSource.clip = Resources.Load($"AudioClip/{soundInfo.Name}", typeof(AudioClip)) as AudioClip;
         if (soundInfo.Type == SoundInfo.Types.BGM)
         {
             AudioSource.loop = true;

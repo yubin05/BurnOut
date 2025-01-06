@@ -6,7 +6,5 @@ using UnityEngine;
 public class SoundInfo : Entity
 {
     public enum Types { BGM, SFX }
-
-    public string Name { get; set; }
     public Types Type { get; set; }
 }

@@ -32,7 +32,7 @@ public class GameManager : GlobalSingleton<GameManager>
         Debug.Log(languageStr);
 
         // test
-        GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>("TestBGM");
+        GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10001);
     }
 
     private void Update()
@@ -45,11 +45,12 @@ public class GameManager : GlobalSingleton<GameManager>
         // test
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>("TestSFX");
+            GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10002);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Debug.Log(GameApplication.Instance.GameModel.RuntimeData.ReturnDatas<SoundInfo>(nameof(SoundInfo)).Length);
+            var soundInfos = GameApplication.Instance.GameModel.RuntimeData.ReturnDatas<SoundInfo>(nameof(SoundInfo));
+            if (soundInfos != null) Debug.Log(soundInfos.Length);
         }
     }
 
