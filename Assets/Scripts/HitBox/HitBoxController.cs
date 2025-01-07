@@ -6,7 +6,7 @@ using UnityEngine;
 public class HitBoxController : HitBoxControllor_All
 {
     // Enemy & Boss
-    Enemy enemy; Boss boss;
+    Enemy_Legacy enemy; Boss boss;
 
     protected override void Start()
     {
@@ -19,7 +19,7 @@ public class HitBoxController : HitBoxControllor_All
         if (collision.gameObject.layer == 8)    // Enemy(Layer)
             // hit enemy
         {
-            enemy = collision.gameObject.GetComponent<Enemy>();
+            enemy = collision.gameObject.GetComponent<Enemy_Legacy>();
             enemy?.Hit(player_script.player_sword_attack_power);
         }
         if (collision.gameObject.layer == 11)    // Boss(Layer)

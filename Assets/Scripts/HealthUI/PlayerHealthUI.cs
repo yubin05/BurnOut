@@ -16,12 +16,12 @@ public class PlayerHealthUI : HealthUIController
     {
         base.Start();
 
-        // ÇÃ·¹ÀÌ¾î Ã¼·Â ¹Ù ÀÌ¹ÌÁö ¼³Á¤
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         playerHealthSprite = Resources.Load<Sprite>(healthSpriteFolderPath + playerHealthSpriteFileName);
         GetComponent<Image>().sprite = playerHealthSprite;
 
-        health_amount = transform.root.GetComponentInChildren<PlayerController>().health;
-        max_health_amount = transform.root.GetComponentInChildren<PlayerController>().max_health;
+        health_amount = transform.root.GetComponentInChildren<PlayerController_Legacy>().health;
+        max_health_amount = transform.root.GetComponentInChildren<PlayerController_Legacy>().max_health;
 
         healthUI.fillAmount = (health_amount / (float)max_health_amount);
         playerHealthText.text = health_amount.ToString();

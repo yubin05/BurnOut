@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealthPack : ItemPack
 {    
-    protected override void TriggeredItem(GameObject player, PlayerController player_script)
+    protected override void TriggeredItem(GameObject player, PlayerController_Legacy player_script)
     {
         player_script.health += addValue;
         player.GetComponentInChildren<PlayerHealthUI>().setHealthUI(player_script.health);    // player health UI control

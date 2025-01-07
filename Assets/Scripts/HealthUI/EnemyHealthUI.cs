@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyHealthUI : HealthUIController
 {
-    Enemy enemy;
+    Enemy_Legacy enemy;
 
     Sprite enemyHealthSprite;
     private readonly string enemyHealthSpriteFileName = "barRed_horizontalMid";
@@ -15,11 +15,11 @@ public class EnemyHealthUI : HealthUIController
     {
         base.Start();
 
-        // Àû Ã¼·Â ¹Ù ÀÌ¹ÌÁö ¼³Á¤
+        // ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         enemyHealthSprite = Resources.Load<Sprite>(healthSpriteFolderPath + enemyHealthSpriteFileName);
         GetComponent<Image>().sprite = enemyHealthSprite;
 
-        enemy = transform.parent.parent.parent.GetComponent<Enemy>();
+        enemy = transform.parent.parent.parent.GetComponent<Enemy_Legacy>();
         health_amount = enemy.health;
         max_health_amount = enemy.max_health;
 

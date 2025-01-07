@@ -9,7 +9,7 @@ public class Player_Skill_Dash : MonoBehaviour
 
     // Player
     GameObject player;
-    PlayerController player_script;
+    PlayerController_Legacy player_script;
 
     // Audio Manager
     GameObject audio_;
@@ -33,7 +33,7 @@ public class Player_Skill_Dash : MonoBehaviour
 
         // get player object and player script
         player = GameObject.FindWithTag("Player");
-        player_script = player.GetComponent<PlayerController>();
+        player_script = player.GetComponent<PlayerController_Legacy>();
 
         // get audio manager
         audio_ = transform.parent.Find("AudioManager_Player").gameObject;

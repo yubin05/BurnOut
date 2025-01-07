@@ -10,13 +10,13 @@ public class ThrowObject : MonoBehaviour
     // Player
     GameObject player;
     SpriteRenderer player_render;
-    PlayerController playerController;
+    PlayerController_Legacy playerController;
 
     // Animator
     Animator animator;
 
     // Coliision Enemy
-    Enemy enemy;
+    Enemy_Legacy enemy;
     Boss boss;
 
     private int directionX;
@@ -29,7 +29,7 @@ public class ThrowObject : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
         player_render = player.GetComponent<SpriteRenderer>();
-        playerController = player.GetComponent<PlayerController>();
+        playerController = player.GetComponent<PlayerController_Legacy>();
 
         moveSpeed = player.GetComponentInChildren<ThrowObjectController>().moveSpeed;
     }
@@ -54,7 +54,7 @@ public class ThrowObject : MonoBehaviour
             StopMove();
 
             // Enemy Health Decreased
-            enemy = collision.gameObject.GetComponent<Enemy>();
+            enemy = collision.gameObject.GetComponent<Enemy_Legacy>();
             enemy.Hit(playerController.player_throw_attack_power);
         }
         else if (collision.transform.tag == "Boss")

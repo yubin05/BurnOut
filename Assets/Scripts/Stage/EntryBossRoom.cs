@@ -25,7 +25,7 @@ public class EntryBossRoom : MonoBehaviour
         if (collider.gameObject.tag == "Player")
         {
             // player stop wait a minute
-            player.GetComponent<PlayerController>().canInput = false;
+            player.GetComponent<PlayerController_Legacy>().canInput = false;
             //StartCoroutine(CanMovePlayer());
 
             // close door in boss room
@@ -62,7 +62,7 @@ public class EntryBossRoom : MonoBehaviour
     void CanMovePlayer()
     {        
         // player can move
-        player.GetComponent<PlayerController>().canInput = true;
+        player.GetComponent<PlayerController_Legacy>().canInput = true;
 
         // prevent iteration
         Destroy(gameObject);

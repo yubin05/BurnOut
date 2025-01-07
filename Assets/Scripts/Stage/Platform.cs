@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Platform : MonoBehaviour
+public class Platform_Legacy : MonoBehaviour
 {
     protected GameObject player;
-    protected PlayerController player_script;
+    protected PlayerController_Legacy player_script;
 
     protected virtual void Start()
     {
         player = GameObject.FindWithTag("Player");
-        player_script = player.GetComponent<PlayerController>();
+        player_script = player.GetComponent<PlayerController_Legacy>();
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)

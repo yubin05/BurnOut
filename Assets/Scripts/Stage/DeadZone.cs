@@ -8,7 +8,7 @@ public class DeadZone : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            collider.gameObject.GetComponent<PlayerController>().Dead();
+            collider.gameObject.GetComponent<PlayerController_Legacy>().Dead();
         }
 
         // destroy falling floor when contact deadzone

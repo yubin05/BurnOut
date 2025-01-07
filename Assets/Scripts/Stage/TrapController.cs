@@ -10,7 +10,7 @@ public class TrapController : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            collider.gameObject.GetComponent<PlayerController>().Dead();
+            collider.gameObject.GetComponent<PlayerController_Legacy>().Dead();
         }
     }
 }

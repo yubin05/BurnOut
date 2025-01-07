@@ -9,7 +9,7 @@ using DG.Tweening;
 public class GameManager_Legacy : MonoBehaviour
 {
     GameObject player;
-    PlayerController player_script;
+    PlayerController_Legacy player_script;
     int player_inital_sword_attack_power;
     int player_inital_throw_attack_power;
     int player_inital_health;
@@ -36,7 +36,7 @@ public class GameManager_Legacy : MonoBehaviour
         isGameOver = false;
 
         player = GameObject.FindWithTag("Player");
-        player_script = player.GetComponent<PlayerController>();
+        player_script = player.GetComponent<PlayerController_Legacy>();
 
         player_script.InitOnStart();
         
@@ -94,7 +94,7 @@ public class GameManager_Legacy : MonoBehaviour
     // this method called by Boss.cs
     public void ActiveStageClearPanelController(GameObject stageManager)
     {
-        if (!isGameOver) { stageManager.GetComponent<StageManager>().ActiveStageClearPanel(); }
+        if (!isGameOver) { stageManager.GetComponent<StageManager_Legacy>().ActiveStageClearPanel(); }
     }
 
     // this method called by GameOver.cs

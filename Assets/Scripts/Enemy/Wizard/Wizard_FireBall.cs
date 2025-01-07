@@ -44,9 +44,9 @@ public class Wizard_FireBall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6 && !player.GetComponent<PlayerController>().isDamaged)    // Player
+        if (collision.gameObject.layer == 6 && !player.GetComponent<PlayerController_Legacy>().isDamaged)    // Player
         {
-            player.GetComponent<PlayerController>().Hit(wizard_script.attackPower);
+            player.GetComponent<PlayerController_Legacy>().Hit(wizard_script.attackPower);
         }
     }
 

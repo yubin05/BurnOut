@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController_Legacy : MonoBehaviour
 {
     GameManager_Legacy gameManager;
 

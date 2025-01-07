@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MaxHealthPack : ItemPack
 {
-    protected override void TriggeredItem(GameObject player, PlayerController player_script)
+    protected override void TriggeredItem(GameObject player, PlayerController_Legacy player_script)
     {
         player_script.max_health += addValue;
         player.GetComponentInChildren<PlayerHealthUI>().setMaxHealthUI(player_script.max_health);    // player health UI control
 
-        // Ã¼·Â ÃÖ´ëÄ¡ Ãß°¡ºÐ¸¸Å­ Ã¼·Â È¸º¹
-        // Ã¼·Â ÃÖ´ëÄ¡ Ãß°¡ ÀÌÈÄ ÀÌ¾îÁö´Â ÀÛ¾÷ÀÌ¹Ç·Î ¿¹¿Ü Ã³¸® ÇÊ¿ä¾øÀ½
+        // Ã¼ï¿½ï¿½ ï¿½Ö´ï¿½Ä¡ ï¿½ß°ï¿½ï¿½Ð¸ï¿½Å­ Ã¼ï¿½ï¿½ È¸ï¿½ï¿½
+        // Ã¼ï¿½ï¿½ ï¿½Ö´ï¿½Ä¡ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½
         player_script.health += addValue;
         player.GetComponentInChildren<PlayerHealthUI>().setHealthUI(player_script.health);    // player health UI control
     }

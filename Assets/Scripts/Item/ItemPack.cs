@@ -13,7 +13,7 @@ public abstract class ItemPack : MonoBehaviour
     protected virtual void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        bGetItem = false;   // ÄÚ·çÆ¾ µô·¹ÀÌ·Î ÀÎÇÑ Áßº¹ È¹µæ ¹æÁöÇÏ±â À§ÇÑ º¯¼ö
+        bGetItem = false;   // ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ È¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collider)
@@ -23,7 +23,7 @@ public abstract class ItemPack : MonoBehaviour
             bGetItem = true;
 
             GameObject player = collider.gameObject;
-            PlayerController player_script = player.GetComponent<PlayerController>();
+            PlayerController_Legacy player_script = player.GetComponent<PlayerController_Legacy>();
 
             // actually item implement
             TriggeredItem(player, player_script);
@@ -31,7 +31,7 @@ public abstract class ItemPack : MonoBehaviour
         }
     }
 
-    protected abstract void TriggeredItem(GameObject player, PlayerController player_script);
+    protected abstract void TriggeredItem(GameObject player, PlayerController_Legacy player_script);
 
     protected virtual void EatItem()
     {

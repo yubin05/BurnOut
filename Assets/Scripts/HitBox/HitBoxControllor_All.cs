@@ -13,7 +13,7 @@ public class HitBoxControllor_All : MonoBehaviour
     protected SpriteRenderer object_render;
 
     // player object's script
-    protected PlayerController player_script;
+    protected PlayerController_Legacy player_script;
 
     // left and right hit box collider
     protected float offset_x_plus;
@@ -30,7 +30,7 @@ public class HitBoxControllor_All : MonoBehaviour
         thisGameobject = transform.root.gameObject;
         object_render = thisGameobject.GetComponent<SpriteRenderer>();
 
-        player_script = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        player_script = GameObject.FindWithTag("Player").GetComponent<PlayerController_Legacy>();
 
         if (isRightDefaultValue) { offset_x_plus = colliderOfCollision.offset.x; }
         else { offset_x_plus = colliderOfCollision.offset.x * (-1); }

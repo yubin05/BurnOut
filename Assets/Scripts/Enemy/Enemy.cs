@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy_Legacy : MonoBehaviour
 {
     protected Rigidbody2D rigid;
     [HideInInspector] public SpriteRenderer render;
@@ -108,7 +108,7 @@ public class Enemy : MonoBehaviour
     // following method controled by OnCollisionEnter2D of this script
     protected virtual void Contact(Collision2D collision, int contactPower)
     {
-        collision.gameObject.GetComponent<PlayerController>().Hit(transform, contactPower);
+        collision.gameObject.GetComponent<PlayerController_Legacy>().Hit(transform, contactPower);
     }
 
     // when enemy dead
@@ -145,8 +145,8 @@ public class Enemy : MonoBehaviour
         {
             render.flipX = !render.flipX;   // turn
         }
-        // Áßº¹ Å¸°Ý ¹æÁö¸¦ À§ÇÑ ÀåÄ¡(player.isDamaged == false Ã¼Å©) Ãß°¡
-        else if (collision.transform.tag == "Player" && !player.GetComponent<PlayerController>().isDamaged)
+        // ï¿½ßºï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡(player.isDamaged == false Ã¼Å©) ï¿½ß°ï¿½
+        else if (collision.transform.tag == "Player" && !player.GetComponent<PlayerController_Legacy>().isDamaged)
             // when enemy contact player
         {
             Contact(collision, contactPower);

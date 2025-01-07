@@ -5,14 +5,14 @@ using UnityEngine;
 public class EntryDialogueCollider : MonoBehaviour
 {
     GameObject player;
-    PlayerController player_script;
+    PlayerController_Legacy player_script;
 
     GameObject dialogue_canvas;
 
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
-        player_script = player.GetComponent<PlayerController>();
+        player_script = player.GetComponent<PlayerController_Legacy>();
 
         dialogue_canvas = transform.GetChild(0).gameObject;
     }

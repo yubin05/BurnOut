@@ -15,6 +15,9 @@ public class GameModel
         LoadCSV<TextInfo>("TextList");
         LoadCSV<SoundInfo>("SoundList");
         LoadCSV<PrefabInfo>("PrefabList");
+        LoadCSV<CharacterStat>("CharacterStatList");
+        LoadCSV<TestStageInfo>("TestStageList");
+        LoadCSV<Player>("PlayerList");
 
         ClientData.PlayerLanguage = LoadJson<PlayerLanguage>(ClientData.PlayerLanguageFileName);
     }

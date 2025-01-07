@@ -49,7 +49,7 @@ public class CSVDataContainer
             dataTables.Add(dataTableName, new DataTable(dataTableName, new Dictionary<int, Data>()));
 
         data.Id = id;
-        data.TableModel = dataTables[dataTableName];;
+        data.TableModel = dataTables[dataTableName];
         dataTables[dataTableName].AddData(id, data);
     }
     public void AddData(string dataTableName, Data data)

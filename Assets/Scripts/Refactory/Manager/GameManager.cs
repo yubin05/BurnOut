@@ -32,7 +32,7 @@ public class GameManager : GlobalSingleton<GameManager>
         Debug.Log(languageStr);
 
         // test
-        GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10001);
+        GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10001, Vector3.zero, Quaternion.identity);
     }
 
     private void Update()
@@ -45,7 +45,7 @@ public class GameManager : GlobalSingleton<GameManager>
         // test
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10002);
+            GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10002, Vector3.zero, Quaternion.identity);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {

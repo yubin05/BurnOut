@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rino : Enemy
+public class Rino : Enemy_Legacy
 {
     private int defaultMoveSpeed = 2;
     private int runSpeed = 8;
@@ -84,7 +84,7 @@ public class Rino : Enemy
 
     //    //if (isDetectedPlayer)
     //    //{
-    //    //    //Debug.Log("ÇÃ·¹ÀÌ¾î °¨Áö");
+    //    //    //Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½");
     //    //    Run();
     //    //}
     //    //else

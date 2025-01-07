@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class CoolTimeUIController : MonoBehaviour
 {
     protected Image cooltimeImage;
-    protected PlayerController player_script;
+    protected PlayerController_Legacy player_script;
 
     protected virtual void Awake()
     {
-        player_script = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        player_script = GameObject.FindWithTag("Player").GetComponent<PlayerController_Legacy>();
     }
 
     protected virtual void Start()

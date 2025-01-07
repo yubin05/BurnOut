@@ -137,7 +137,7 @@ public class Boss : MonoBehaviour
     // following method controled by OnCollisionEnter2D of this script
     protected virtual void Contact(Collision2D collision, int contactPower)
     {
-        collision.gameObject.GetComponent<PlayerController>().Hit(transform, contactPower);
+        collision.gameObject.GetComponent<PlayerController_Legacy>().Hit(transform, contactPower);
     }
 
     // when boss dead
@@ -178,7 +178,7 @@ public class Boss : MonoBehaviour
         {
             render.flipX = !render.flipX;   // turn
         }
-        else if (collision.transform.tag == "Player" && !player.GetComponent<PlayerController>().isDamaged)
+        else if (collision.transform.tag == "Player" && !player.GetComponent<PlayerController_Legacy>().isDamaged)
         // when boss contact player
         {
             Contact(collision, contactPower);

@@ -8,7 +8,7 @@ public class Explosion : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && collision.gameObject.layer == 6)    // Player(layer)
         {
-            collision.gameObject.GetComponent<PlayerController>().Dead();
+            collision.gameObject.GetComponent<PlayerController_Legacy>().Dead();
         }
     }
 }

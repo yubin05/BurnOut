@@ -27,7 +27,7 @@ public class HitBoxControllor_Bandit_DownAttack : HitBoxControllor_All
         if (collision.gameObject.layer == 6)    // Player(Layer)
                                                 // hit Player
         {
-            player_script = collision.gameObject.GetComponent<PlayerController>();
+            player_script = collision.gameObject.GetComponent<PlayerController_Legacy>();
             if (collision.gameObject != null) { player_script.Hit(transform, bandit_script.attackPower); }
             else { bandit_script.OffHitBox2D_left_right(); }
         }
