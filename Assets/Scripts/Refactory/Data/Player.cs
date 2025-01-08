@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : Character
 {
-    public override void Init()
+    public override void Init(EntityObject myObject)
     {
-        base.Init();
+        base.Init(myObject);
     }
 }

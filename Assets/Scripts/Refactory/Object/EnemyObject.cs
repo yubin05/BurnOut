@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class EnemyObject : CharacterObject
 {
-    public int MoveDirection { get; set; }
-
     public override void Init(Data data)
     {
         base.Init(data);
 
         var enemy = data as Enemy;
-        enemy.Init();
+        enemy.Init(this);
 
-        MoveDirection = -1;
+        enemy.MoveDirectionX = Character.MoveDirectionXs.Left;
+
+        transform.ChangeLayerRecursively("Enemy");
     }
 
     protected virtual void Update()
     {
-        FSM.ChangeState(new WalkState(this));
-
-        var enemy = data as Enemy;
-        transform.Translate(new Vector3(MoveDirection * (enemy.BasicStat.MoveSpeed*Time.deltaTime), 0, 0));
+        // 피격 중일땐 피격 모션이 나오면서 정지해야 함
+        if (!MotionHandler.IsHit)
+        {
+            var enemy = data as Enemy;
+            OnMove(enemy.MoveDirectionX);
+        }
     }
 }

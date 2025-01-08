@@ -33,8 +33,6 @@ public class BaseController
         GameModel.RuntimeData.AddData(typeof(T).Name, data);    // 데이터 추가
 
         K obj = Pooling.Instance.CreatePoolObject<K>(id);   // 오브젝트 풀링 가져오기
-        obj.Init(data);
-
         obj.transform.parent = parent;
         if (parent == null)
         {
@@ -46,6 +44,7 @@ public class BaseController
             obj.transform.localPosition = position;
             obj.transform.localRotation = rotation;
         }
+        obj.Init(data);
 
         data.OnDataRemove = null;
         data.OnDataRemove += (_data) => 
@@ -57,6 +56,7 @@ public class BaseController
         return obj;
     }
 }
+
 // 사운드 관련 컨트롤러
 // Ex) 사운드 플레이할 때 등에서 사용
 public class SoundController : BaseController
@@ -65,35 +65,34 @@ public class SoundController : BaseController
     {
     }
 }
+
+public class CharacterController : BaseController
+{
+    public CharacterController(GameModel gameModel) : base(gameModel)
+    {
+    }
+
+    public override K Spawn<T, K>(int id, Vector3 position, Quaternion rotation, Transform parent = null)
+    {
+        var characterObj = base.Spawn<T, K>(id, position, rotation, parent);
+        var character = characterObj.data as Character;
+        character.BasicStat = GameModel.PresetData.ReturnData<CharacterStat>(nameof(CharacterStat), id).Clone() as CharacterStat;
+        character.CurrentHp = character.BasicStat.MaxHp;
+
+        return characterObj;
+    }
+}
 // 플레이어 관련 컨트롤러
-public class PlayerController : BaseController
+public class PlayerController : CharacterController
 {
     public PlayerController(GameModel gameModel) : base(gameModel)
     {
     }
-
-    public override K Spawn<T, K>(int id, Vector3 position, Quaternion rotation, Transform parent = null)
-    {
-        var playerObj = base.Spawn<T, K>(id, position, rotation, parent);
-        var player = playerObj.data as Player;
-        player.BasicStat = GameModel.PresetData.ReturnData<CharacterStat>(nameof(CharacterStat), id).Clone() as CharacterStat;
-
-        return playerObj;
-    }
 }
 // 적 관련 컨트롤러
-public class EnemyController : BaseController
+public class EnemyController : CharacterController
 {
     public EnemyController(GameModel gameModel) : base(gameModel)
     {
-    }
-
-    public override K Spawn<T, K>(int id, Vector3 position, Quaternion rotation, Transform parent = null)
-    {
-        var enemyObj = base.Spawn<T, K>(id, position, rotation, parent);
-        var enemy = enemyObj.data as Enemy;
-        enemy.BasicStat = GameModel.PresetData.ReturnData<CharacterStat>(nameof(CharacterStat), id).Clone() as CharacterStat;
-
-        return enemyObj;
     }
 }

@@ -8,6 +8,7 @@ public class IdleState : BaseState
 
     public override void OnStateEnter(CharacterObject characterObject)
     {
+        characterObject.MotionHandler.EndMove();
     }
 
     public override void OnStateUpdate(CharacterObject characterObject)

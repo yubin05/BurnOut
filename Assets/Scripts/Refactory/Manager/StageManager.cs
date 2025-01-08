@@ -17,6 +17,8 @@ public abstract class StageManager<T> : MonoBehaviour where T : StageInfo
     {
         var stageInfos = GameApplication.Instance.GameModel.PresetData.ReturnDatas<T>(typeof(T).Name).Where(x => x.StageId == StageId).ToArray();
         SpawnEntitys(stageInfos);
+
+        PlayBGM();
     }
 
     // 스테이지 정보에 따른 엔티티들을 소환합니다.
@@ -39,4 +41,6 @@ public abstract class StageManager<T> : MonoBehaviour where T : StageInfo
             }
         }
     }
+
+    protected abstract void PlayBGM();
 }

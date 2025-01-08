@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Entity : Data
 {
+    public EntityObject MyObject { get; protected set; }
     public float LifeTime { get; protected set; } = -1f;
-    public virtual void Init()
+
+    public virtual void Init(EntityObject myObject)
     {
+        MyObject = myObject;
         StartLifeTime(LifeTime);
     }
 

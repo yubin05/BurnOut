@@ -9,6 +9,6 @@ public class EntityObject : PoolObject
         base.Init(data);
 
         var entity = data as Entity;
-        entity.Init();
+        entity.Init(this);
     }
 }

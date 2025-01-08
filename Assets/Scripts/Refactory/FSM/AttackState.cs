@@ -8,8 +8,7 @@ public class AttackState : BaseState
 
     public override void OnStateEnter(CharacterObject characterObject)
     {
-        characterObject.Animator.SetTrigger("OnAttack");
-        characterObject.Animator.SetBool("IsAttack", true);
+        characterObject.MotionHandler.StartAttack();  
     }
 
     public override void OnStateUpdate(CharacterObject characterObject)
@@ -18,8 +17,7 @@ public class AttackState : BaseState
 
     public override void OnStateExit(CharacterObject characterObject)
     {
-        characterObject.Animator.SetBool("IsAttack", false);
-        // 공격 상태 같은 경우는 모션이 다 끝나지 않아도 상태 Exit가 가능하므로 임의로 EndAttack 호출
+        // 공격 도중에 다른 모션으로 변경이 가능해야 함
         characterObject.MotionHandler.EndAttack();
     }
 }

@@ -17,10 +17,8 @@ public class FSM
 
     public void ChangeState(BaseState nextState)
     {
-        if (CurState != null && !CurState.GetType().Equals(nextState.GetType()))
-        {
+        if (CurState != null)
             CurState.OnStateExit(characterObject);   // 현재 상태가 존재하면 상태를 빠져나갈 때 사용하는 함수 호출
-        }            
 
         // 다음 상태를 현재 상태로 바꾸고 해당 상태를 진입하는 함수 호출
         CurState = nextState;

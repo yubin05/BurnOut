@@ -16,7 +16,9 @@ public class Wall : MonoBehaviour, IGrid
 
                 if (enemy.MoveType == 0)    // MoveType이 0이면 벽에 닿을 경우, 방향 전환
                 {
-                    enemyObject.MoveDirection *= -1;
+                    var diretionX = (int)enemy.MoveDirectionX;
+                    diretionX *= -1;
+                    enemy.MoveDirectionX = (Character.MoveDirectionXs)diretionX;
                 }
             }
         }

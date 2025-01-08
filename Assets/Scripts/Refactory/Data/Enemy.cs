@@ -7,8 +7,8 @@ public class Enemy : Character
     public enum MoveTypes { Continuous, Tracking }
     public MoveTypes MoveType { get; set; }
 
-    public override void Init()
+    public override void Init(EntityObject myObject)
     {
-        base.Init();
+        base.Init(myObject);
     }
 }

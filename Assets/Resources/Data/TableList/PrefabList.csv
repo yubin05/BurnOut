@@ -1,5 +1,6 @@
 Id,Path
 10001,Prefabs/SoundObject/TestBGM
 10002,Prefabs/SoundObject/TestSFX
+10003,Prefabs/SoundObject/StageBGM
 20001,Prefabs/Character/Player
 30001,Prefabs/Character/Slime

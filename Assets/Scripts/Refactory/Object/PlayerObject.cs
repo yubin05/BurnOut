@@ -9,43 +9,47 @@ public class PlayerObject : CharacterObject
         base.Init(data);
 
         var player = data as Player;
-        player.Init();
+        player.Init(this);
 
-        MotionHandler.JumpEvent += () => 
+        MotionHandler.AttackEvent += () =>
         {
-            Rigidbody2D.AddForce(transform.up * player.BasicStat.JumpPower, ForceMode2D.Impulse);
+            var hitBoxs = Physics2D.OverlapBoxAll(AttackNode.position, AttackNode.localScale, 0f, LayerMask.GetMask("Enemy"));
+            foreach (var hitBox in hitBoxs)
+            {
+                var enemyObj = hitBox.GetComponent<EnemyObject>();
+                if (enemyObj != null)
+                {
+                    enemyObj.OnHit(player.BasicStat.AttackDamage);
+                }
+            }
         };
+
+        player.MoveDirectionX = Character.MoveDirectionXs.Right;
+
+        transform.ChangeLayerRecursively("Player");
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))  // 공격
         {
-            FSM.ChangeState(new AttackState(this));
+            OnAttack();
         }
         else if (!MotionHandler.IsJump && Input.GetKeyDown(KeyCode.LeftAlt))  // 점프
         {
-            FSM.ChangeState(new JumpState(this));            
+            OnJump();
         }
         else if (Input.GetKey(KeyCode.RightArrow))   // 오른쪽으로 이동
         {
-            SpriteRenderer.flipX = false;
-            if (!MotionHandler.IsJump) FSM.ChangeState(new WalkState(this));
-
-            var player = data as Player;
-            transform.Translate(new Vector3(+(player.BasicStat.MoveSpeed*Time.deltaTime), 0, 0));
+            OnMove(Character.MoveDirectionXs.Right);
         }
         else if (Input.GetKey(KeyCode.LeftArrow))   // 왼쪽으로 이동
         {
-            SpriteRenderer.flipX = true;
-            if (!MotionHandler.IsJump) FSM.ChangeState(new WalkState(this));
-
-            var player = data as Player;
-            transform.Translate(new Vector3(-(player.BasicStat.MoveSpeed*Time.deltaTime), 0, 0));
+            OnMove(Character.MoveDirectionXs.Left);
         }        
         else if (!MotionHandler.IsJump && !MotionHandler.IsAttack)
         {
-            FSM.ChangeState(new IdleState(this));
+            OnIdle();
         }
     }
 }
