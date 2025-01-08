@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class StageManager<T> : MonoBehaviour where T : StageInfo
 {
+    [SerializeField] protected int StageId;
+
     protected void Start()
     {
         Init();
@@ -12,7 +15,7 @@ public abstract class StageManager<T> : MonoBehaviour where T : StageInfo
 
     protected virtual void Init()
     {
-        var stageInfos = GameApplication.Instance.GameModel.PresetData.ReturnDatas<T>(typeof(T).Name);
+        var stageInfos = GameApplication.Instance.GameModel.PresetData.ReturnDatas<T>(typeof(T).Name).Where(x => x.StageId == StageId).ToArray();
         SpawnEntitys(stageInfos);
     }
 
@@ -25,6 +28,12 @@ public abstract class StageManager<T> : MonoBehaviour where T : StageInfo
             if (stageInfo.CharacterId > 20000 && stageInfo.CharacterId < 30000)
             {
                 GameApplication.Instance.GameController.PlayerController.Spawn<Player, PlayerObject>(
+                    stageInfo.CharacterId, new Vector3(stageInfo.SpawnPointX, stageInfo.SpawnPointY, 0), Quaternion.identity
+                );
+            }
+            else if (stageInfo.CharacterId > 30000 && stageInfo.CharacterId < 40000)
+            {
+                GameApplication.Instance.GameController.EnemyController.Spawn<Enemy, EnemyObject>(
                     stageInfo.CharacterId, new Vector3(stageInfo.SpawnPointX, stageInfo.SpawnPointY, 0), Quaternion.identity
                 );
             }

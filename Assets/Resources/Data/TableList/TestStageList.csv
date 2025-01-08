@@ -1,2 +1,3 @@
-Id,CharacterId,SpawnPointX,SpawnPointY
-40001,20001,-7.5,-2
+Id,StageId,CharacterId,SpawnPointX,SpawnPointY
+1,40001,20001,-7.5,-2
+2,40001,30001,7.5,-2

@@ -10,13 +10,15 @@ public class CharacterObject : EntityObject
     [SerializeField] private Animator animator;
     public Animator Animator => animator;
 
+    protected MotionHandler motionHandler;
+    public MotionHandler MotionHandler => motionHandler;
+    
     public Rigidbody2D Rigidbody2D { get; protected set; }
-
-    public bool IsJump { get; set; }
 
     protected virtual void Awake()
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
+        motionHandler = animator.transform.GetComponent<MotionHandler>();
     }
 
     public FSM FSM { get; protected set; }
@@ -29,7 +31,6 @@ public class CharacterObject : EntityObject
         character.Init();
 
         FSM = new FSM(this);
-
-        IsJump = false;
+        motionHandler.Init();
     }
 }

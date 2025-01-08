@@ -8,11 +8,13 @@ public class GameController
 {
     public SoundController SoundController { get; private set; }
     public PlayerController PlayerController { get; private set; }
+    public EnemyController EnemyController { get; private set; }
 
     public void Init(GameModel gameModel)
     {
         SoundController = new SoundController(gameModel);
         PlayerController = new PlayerController(gameModel);
+        EnemyController = new EnemyController(gameModel);
     }
 }
 
@@ -77,5 +79,21 @@ public class PlayerController : BaseController
         player.BasicStat = GameModel.PresetData.ReturnData<CharacterStat>(nameof(CharacterStat), id).Clone() as CharacterStat;
 
         return playerObj;
+    }
+}
+// 적 관련 컨트롤러
+public class EnemyController : BaseController
+{
+    public EnemyController(GameModel gameModel) : base(gameModel)
+    {
+    }
+
+    public override K Spawn<T, K>(int id, Vector3 position, Quaternion rotation, Transform parent = null)
+    {
+        var enemyObj = base.Spawn<T, K>(id, position, rotation, parent);
+        var enemy = enemyObj.data as Enemy;
+        enemy.BasicStat = GameModel.PresetData.ReturnData<CharacterStat>(nameof(CharacterStat), id).Clone() as CharacterStat;
+
+        return enemyObj;
     }
 }

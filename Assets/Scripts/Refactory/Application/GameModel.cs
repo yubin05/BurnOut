@@ -18,6 +18,7 @@ public class GameModel
         LoadCSV<CharacterStat>("CharacterStatList");
         LoadCSV<TestStageInfo>("TestStageList");
         LoadCSV<Player>("PlayerList");
+        LoadCSV<Enemy>("EnemyList");
 
         ClientData.PlayerLanguage = LoadJson<PlayerLanguage>(ClientData.PlayerLanguageFileName);
     }

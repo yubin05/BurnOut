@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : Enemy_Legacy
+public class Slime_Legacy : Enemy_Legacy
 {
     protected override void Awake()
     {
