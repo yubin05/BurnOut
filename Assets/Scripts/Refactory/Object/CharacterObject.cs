@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ImmunitySystem))]
 public class CharacterObject : EntityObject
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -17,10 +18,13 @@ public class CharacterObject : EntityObject
     
     public Rigidbody2D Rigidbody2D { get; protected set; }
 
+    public ImmunitySystem ImmunitySystem { get; protected set; }
+
     protected virtual void Awake()
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
         MotionHandler = animator.transform.GetComponent<MotionHandler>();
+        ImmunitySystem = GetComponent<ImmunitySystem>();
     }
 
     public FSM FSM { get; protected set; }
@@ -29,11 +33,35 @@ public class CharacterObject : EntityObject
     {
         base.Init(data);
 
+        // 캐릭터 데이터 초기화
         var character = data as Character;
         character.Init(this);
 
+        // 상태 머신 초기화
         FSM = new FSM(this);
+
+        // 애니메이터 모션 핸들러 초기화 및 이벤트 추가
         MotionHandler.Init();
+        MotionHandler.DeathEvent += () => 
+        {
+            character.RemoveData();
+        };
+
+        // 무적 시스템 초기화 및 이벤트 추가
+        Color color = SpriteRenderer.color;
+        float originAlpha = color.a; float setAlpha = 0.5f;
+
+        ImmunitySystem.Init();
+        ImmunitySystem.OnStartImmunity += () => 
+        {
+            color.a = setAlpha;
+            SpriteRenderer.color = color;
+        };
+        ImmunitySystem.OnStopImmunity += () =>
+        {
+            color.a = originAlpha;
+            SpriteRenderer.color = color;
+        };
     }
 
     // 가만히 있습니다.
@@ -71,9 +99,24 @@ public class CharacterObject : EntityObject
     // 피격 당합니다.
     public virtual void OnHit(int attackPower)
     {
-        FSM.ChangeState(new HitState(this));
-
         var character = data as Character;
         character.CurrentHp = Mathf.Max(0, character.CurrentHp-attackPower);
+
+        if (character.CurrentHp <= 0)
+        {
+            OnDeath();
+        }
+        else
+        {
+            FSM.ChangeState(new HitState(this));
+            ImmunitySystem.StartImmunity(character.BasicStat.StaggerDuration);
+        }
+    }    
+
+    // 죽습니다.
+    public virtual void OnDeath()
+    {
+        FSM.ChangeState(new DeathState(this));
+        ImmunitySystem.StartImmunity(); // 죽는 동안은 무적 처리하도록 설정
     }
 }

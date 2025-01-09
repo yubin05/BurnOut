@@ -9,4 +9,5 @@ public class CharacterStat : Data
     public int AbilityPower { get; set; }
     public int AttackSpeed { get; set; }
     public float JumpPower { get; set; }
+    public float StaggerDuration { get; set; }
 }

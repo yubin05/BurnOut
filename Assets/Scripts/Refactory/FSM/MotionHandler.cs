@@ -20,6 +20,9 @@ public class MotionHandler : MonoBehaviour
     public bool IsHit { get; private set; }
     public event Action HitEvent;
 
+    public bool IsDeath { get; private set; }
+    public event Action DeathEvent;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -38,6 +41,9 @@ public class MotionHandler : MonoBehaviour
 
         IsHit = false;
         HitEvent = null;
+
+        IsDeath = false;
+        DeathEvent = null;
     }
 
     // 이동 시작
@@ -114,4 +120,18 @@ public class MotionHandler : MonoBehaviour
         IsHit = false;
         animator.SetBool(nameof(IsHit), IsHit);
     }
+
+    // 죽음 시작
+    public void StartDeath()
+    {
+        IsDeath = true;
+        animator.SetBool(nameof(IsDeath), IsDeath);
+        animator.SetTrigger(nameof(OnDeath));
+    }
+    // 죽음 이벤트
+    public void OnDeath()
+    {
+        DeathEvent?.Invoke();
+    }
+    // 죽으면 데이터가 사라지므로 End 모션은 존재하지 않음
 }

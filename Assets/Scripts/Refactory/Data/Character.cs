@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Character : Entity
 {
+    // 해당 캐릭터가 가지고 있는 기본 스탯
     public CharacterStat BasicStat { get; set; }
+
+    // 해당 캐릭터가 공격할 수 있는 오브젝트의 레이어
+    public LayerMask AttackTargets { get; set; }
 
     // 캐릭터 오브젝트가 보고 있는 방향 (왼쪽:-1, 오른쪽:1)
     public enum MoveDirectionXs { Left=-1, Right=1 }
@@ -22,15 +26,8 @@ public class Character : Entity
         }
     }
 
-    private int currentHp;
-    public int CurrentHp
-    {
-        get { return currentHp; }
-        set
-        {
-            currentHp = value;
-        }
-    }
+    // 캐릭터가 가지고 있는 현재 체력
+    public int CurrentHp { get; set; }
 
     public override void Init(EntityObject myObject)
     {

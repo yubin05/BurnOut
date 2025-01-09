@@ -68,6 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4554834805683292189}
   - component: {fileID: 5459573117208959624}
+  - component: {fileID: 7374465249908706029}
   - component: {fileID: 4078016730397011964}
   - component: {fileID: 5954591544053929051}
   m_Layer: 0
@@ -109,6 +110,18 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8279116720520690536}
   animator: {fileID: 5696679799961832800}
   attackNode: {fileID: 4287074993183329041}
+--- !u!114 &7374465249908706029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4554834805683292184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de90163a065d3834192a467e59b46978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &4078016730397011964
 Rigidbody2D:
   serializedVersion: 4

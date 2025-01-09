@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Platform : MonoBehaviour, IGrid
+public class Platform : MonoBehaviour, ICollision2D
 {
     public virtual void OnCollisionEnter2D(Collision2D other)
     {

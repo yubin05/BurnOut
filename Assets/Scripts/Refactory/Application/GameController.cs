@@ -88,11 +88,29 @@ public class PlayerController : CharacterController
     public PlayerController(GameModel gameModel) : base(gameModel)
     {
     }
+
+    public override K Spawn<T, K>(int id, Vector3 position, Quaternion rotation, Transform parent = null)
+    {
+        var playerObj = base.Spawn<T, K>(id, position, rotation, parent);
+        var player = playerObj.data as Player;
+        player.AttackTargets = LayerMask.GetMask(nameof(Enemy));
+
+        return playerObj;
+    }
 }
 // 적 관련 컨트롤러
 public class EnemyController : CharacterController
 {
     public EnemyController(GameModel gameModel) : base(gameModel)
     {
+    }
+
+    public override K Spawn<T, K>(int id, Vector3 position, Quaternion rotation, Transform parent = null)
+    {
+        var enemyObj = base.Spawn<T, K>(id, position, rotation, parent);
+        var enemy = enemyObj.data as Enemy;
+        enemy.AttackTargets = LayerMask.GetMask(nameof(Player));
+
+        return enemyObj;
     }
 }
