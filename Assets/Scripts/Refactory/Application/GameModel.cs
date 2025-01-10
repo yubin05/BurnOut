@@ -16,17 +16,19 @@ public class GameModel
         LoadCSV<SoundInfo>("SoundList");
         LoadCSV<PrefabInfo>("PrefabList");
         LoadCSV<CharacterStat>("CharacterStatList");
-        LoadCSV<TestStageInfo>("TestStageList");
+        LoadCSV<StageInfo>("StageList", true);
         LoadCSV<Player>("PlayerList");
         LoadCSV<Enemy>("EnemyList");
 
         ClientData.PlayerLanguage = LoadJson<PlayerLanguage>(ClientData.PlayerLanguageFileName);
     }
 
-    private void LoadCSV<T>(string _fileName) where T : Data
+    private void LoadCSV<T>(string _fileName, bool autoIndexing=false) where T : Data
     {
         var path = Resources.Load<TextAsset>(DataTablePath.CSVFilePath+_fileName);
-        PresetData.LoadData<T>(typeof(T).Name, path.text);
+
+        if (!autoIndexing) PresetData.LoadData<T>(typeof(T).Name, path.text);
+        else PresetData.LoadDataAutoIndexing<T>(typeof(T).Name, path.text);
     }
 
     private T LoadJson<T>(string _fileName) where T : Data

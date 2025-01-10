@@ -19,6 +19,14 @@ public class CSVDataContainer
             AddData(dataTableName, instance.Id, instance);
         }
     }
+    public void LoadDataAutoIndexing<T>(string dataTableName, string path) where T : Data
+    {
+        var instances = GetData<T>(path);
+        foreach (var instance in instances)
+        {
+            AddData(dataTableName, instance);
+        }
+    }
 
     public T ReturnData<T>(string dataTableName, int id) where T : Data
     {
@@ -72,8 +80,7 @@ public class CSVDataContainer
     public List<T> GetData<T>(string _file)
     {
         var list = new List<T>();
-        // var lines = File.ReadLines(_file).ToList();
-        var lines = GetCSVLines(_file);
+        var lines = Regex.Split(_file, @"\r\n|\n\r|\n|\r").ToList();
         var headerLine = lines.First();
         var colNames = headerLine.Split(',');
         var rows = lines.Skip(1);
@@ -105,11 +112,6 @@ public class CSVDataContainer
         });
 
         return list;
-    }
-
-    public List<string> GetCSVLines(string _file)
-    {
-        return Regex.Split(_file, @"\r\n|\n\r|\n|\r").ToList();
     }
 
     public void Clear()

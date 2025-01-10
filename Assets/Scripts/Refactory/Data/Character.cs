@@ -12,7 +12,7 @@ public class Character : Entity
 
     // 캐릭터 오브젝트가 보고 있는 방향 (왼쪽:-1, 오른쪽:1)
     public enum MoveDirectionXs { Left=-1, Right=1 }
-    private MoveDirectionXs moveDirectionX;
+    protected MoveDirectionXs moveDirectionX;
     public MoveDirectionXs MoveDirectionX
     { 
         get { return moveDirectionX; }
@@ -27,7 +27,19 @@ public class Character : Entity
     }
 
     // 캐릭터가 가지고 있는 현재 체력
-    public int CurrentHp { get; set; }
+    protected int currentHp;
+    public int CurrentHp
+    { 
+        get { return currentHp; }
+        set
+        {
+            currentHp = value;
+            if (StageManager.Instance)
+            {
+                StageManager.Instance.PlayerStatsBar.UpdateUI();   
+            }
+        }
+    }
 
     public override void Init(EntityObject myObject)
     {

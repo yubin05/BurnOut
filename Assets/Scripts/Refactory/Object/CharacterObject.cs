@@ -116,6 +116,9 @@ public class CharacterObject : EntityObject
     // 죽습니다.
     public virtual void OnDeath()
     {
+        var character = data as Character;
+        character.CurrentHp = 0;
+        
         FSM.ChangeState(new DeathState(this));
         ImmunitySystem.StartImmunity(); // 죽는 동안은 무적 처리하도록 설정
     }
