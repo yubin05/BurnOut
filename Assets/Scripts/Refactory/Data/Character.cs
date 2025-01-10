@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,16 +34,18 @@ public class Character : Entity
         get { return currentHp; }
         set
         {
+            var preCurrentHp = currentHp;
             currentHp = value;
-            if (StageManager.Instance)
-            {
-                StageManager.Instance.PlayerStatsBar.UpdateUI();   
-            }
+            if (preCurrentHp != currentHp) OnChangeCurrentHp?.Invoke(currentHp);
         }
     }
+    // 현재 체력 변화할 때마다 호출할 이벤트
+    public event Action<int> OnChangeCurrentHp;
 
     public override void Init(EntityObject myObject)
     {
         base.Init(myObject);
+
+        OnChangeCurrentHp = null;
     }
 }

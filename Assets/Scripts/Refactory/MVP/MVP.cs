@@ -34,7 +34,7 @@ public abstract class View<P, M> : MonoBehaviour, IView<M> where P : Presenter<M
 /// Presenter -> Model에 데이터를 담아 View로 전달해주는 매개체
 /// </summary>
 /// <typeparam name="M"></typeparam>
-public class Presenter<M> where M : Model, new()
+public abstract class Presenter<M> where M : Model, new()
 {
     protected IView<M> view;
     protected M model;
@@ -59,6 +59,6 @@ public class Presenter<M> where M : Model, new()
 /// <summary>
 /// Model -> View에 뿌려줄 데이터를 갖고있는 클래스 (Presenter를 통해 전달)
 /// </summary>
-public class Model
+public abstract class Model
 {
 }

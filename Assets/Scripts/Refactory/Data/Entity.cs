@@ -19,8 +19,8 @@ public class Entity : Data
         if (lifeTime <= 0) return;  // 생명 시간이 0 이하면 잘못 들어온 값으로 판단하여 리턴
         LifeTime = lifeTime;
 
-        if (LifeTimeCoroutine != null) CoroutineHelper.StopCoroutine(LifeTimeCoroutine);
-        LifeTimeCoroutine = CoroutineHelper.StartCoroutine(LifeTimeProcess(lifeTime));
+        if (LifeTimeCoroutine != null) MyObject.StopCoroutine(LifeTimeCoroutine);
+        LifeTimeCoroutine = MyObject.StartCoroutine(LifeTimeProcess(lifeTime));
     }
     private IEnumerator LifeTimeProcess(float lifeTime)
     {

@@ -46,4 +46,22 @@ public class EnemyObject : CharacterObject
             }
         }        
     }
+
+    public override void OnHit(int attackPower)
+    {
+        base.OnHit(attackPower);
+
+        // 헤드바가 존재하지 않는 경우 오브젝트 생성
+        if (HeadBarObject == null)
+        {
+            HeadBarObject = GameApplication.Instance.GameController.HeadBarController.Spawn<HeadBar, HeadBarObject>(this, 50001);
+        }
+        // 헤드바가 존재하는 경우, 해당 헤드바 생명 주기 초기화하여 계속 유지
+        else
+        {
+            var headBar = HeadBarObject.data as HeadBar;
+            headBar.StartLifeTime(headBar.LifeTime);
+        }
+        HeadBarObject.UpdateHeadBar();  // 헤드바 정보 업데이트
+    }
 }

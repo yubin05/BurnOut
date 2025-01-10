@@ -5,20 +5,25 @@ using UnityEngine;
 [RequireComponent(typeof(ImmunitySystem))]
 public class CharacterObject : EntityObject
 {
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] protected SpriteRenderer spriteRenderer;
     public SpriteRenderer SpriteRenderer => spriteRenderer;
 
-    [SerializeField] private Animator animator;
+    [SerializeField] protected Animator animator;
     public Animator Animator => animator;
 
-    [SerializeField] private Transform attackNode;
+    [SerializeField] protected Transform attackNode;
     public Transform AttackNode => attackNode;
+
+    [SerializeField] protected Transform headBarNode;
+    public Transform HeadBarNode => headBarNode;
 
     public MotionHandler MotionHandler { get; protected set; }
     
     public Rigidbody2D Rigidbody2D { get; protected set; }
 
     public ImmunitySystem ImmunitySystem { get; protected set; }
+
+    public HeadBarObject HeadBarObject { get; set; }  // 대상이 가지고 있는 헤드바 오브젝트
 
     protected virtual void Awake()
     {
@@ -62,6 +67,8 @@ public class CharacterObject : EntityObject
             color.a = originAlpha;
             SpriteRenderer.color = color;
         };
+
+        HeadBarObject = null;
     }
 
     // 가만히 있습니다.
@@ -111,7 +118,7 @@ public class CharacterObject : EntityObject
             FSM.ChangeState(new HitState(this));
             ImmunitySystem.StartImmunity(character.BasicStat.StaggerDuration);
         }
-    }    
+    }
 
     // 죽습니다.
     public virtual void OnDeath()

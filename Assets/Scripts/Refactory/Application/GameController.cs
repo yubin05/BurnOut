@@ -3,22 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// 게임 컨트롤러를 모아놓은 클래스
+/// <summary>
+/// 모든 게임 컨트롤러를 모아놓은 클래스
+/// </summary>
 public class GameController
 {
     public SoundController SoundController { get; private set; }
     public PlayerController PlayerController { get; private set; }
     public EnemyController EnemyController { get; private set; }
+    public HeadBarController HeadBarController { get; private set; }
 
     public void Init(GameModel gameModel)
     {
         SoundController = new SoundController(gameModel);
         PlayerController = new PlayerController(gameModel);
         EnemyController = new EnemyController(gameModel);
+        HeadBarController = new HeadBarController(gameModel);
     }
 }
 
-public class BaseController
+/// <summary>
+/// 모든 컨트롤러의 베이스(부모)가 되는 클래스
+/// </summary>
+public abstract class BaseController
 {
     protected GameModel GameModel;
 
@@ -33,7 +40,7 @@ public class BaseController
         GameModel.RuntimeData.AddData(typeof(T).Name, data);    // 데이터 추가
 
         K obj = Pooling.Instance.CreatePoolObject<K>(id);   // 오브젝트 풀링 가져오기
-        obj.transform.parent = parent;
+        obj.transform.SetParent(parent);
         if (parent == null)
         {
             obj.transform.position = position;
@@ -57,8 +64,9 @@ public class BaseController
     }
 }
 
-// 사운드 관련 컨트롤러
-// Ex) 사운드 플레이할 때 등에서 사용
+/// <summary>
+/// 사운드 관련 컨트롤러 (사운드 오브젝트 소환 등)
+/// </summary>
 public class SoundController : BaseController
 {
     public SoundController(GameModel gameModel) : base(gameModel)
@@ -66,6 +74,9 @@ public class SoundController : BaseController
     }
 }
 
+/// <summary>
+/// 캐릭터 관련 컨트롤러 (캐릭터 오브젝트 소환 등)
+/// </summary>
 public class CharacterController : BaseController
 {
     public CharacterController(GameModel gameModel) : base(gameModel)
@@ -76,13 +87,24 @@ public class CharacterController : BaseController
     {
         var characterObj = base.Spawn<T, K>(id, position, rotation, parent);
         var character = characterObj.data as Character;
+
         character.BasicStat = GameModel.PresetData.ReturnData<CharacterStat>(nameof(CharacterStat), id).Clone() as CharacterStat;
         character.CurrentHp = character.BasicStat.MaxHp;
+        
+        // 캐릭터 데이터가 사라지면 캐릭터가 가지고 있던 헤드바 데이터도 삭제해줘야 함
+        character.OnDataRemove += (data) => 
+        {
+            var headBarObj = (characterObj as CharacterObject).HeadBarObject;
+            var headBar = headBarObj.data as HeadBar;
+            headBar.RemoveData();
+        };
 
         return characterObj;
     }
 }
-// 플레이어 관련 컨트롤러
+/// <summary>
+/// 플레이어 관련 컨트롤러(플레이어 오브젝트 소환 등)
+/// </summary>
 public class PlayerController : CharacterController
 {
     public PlayerController(GameModel gameModel) : base(gameModel)
@@ -93,12 +115,15 @@ public class PlayerController : CharacterController
     {
         var playerObj = base.Spawn<T, K>(id, position, rotation, parent);
         var player = playerObj.data as Player;
+
         player.AttackTargets = LayerMask.GetMask(nameof(Enemy));
 
         return playerObj;
     }
 }
-// 적 관련 컨트롤러
+/// <summary>
+/// 적 관련 컨트롤러(적 오브젝트 소환 등)
+/// </summary>
 public class EnemyController : CharacterController
 {
     public EnemyController(GameModel gameModel) : base(gameModel)
@@ -109,8 +134,34 @@ public class EnemyController : CharacterController
     {
         var enemyObj = base.Spawn<T, K>(id, position, rotation, parent);
         var enemy = enemyObj.data as Enemy;
+        
         enemy.AttackTargets = LayerMask.GetMask(nameof(Player));
 
         return enemyObj;
+    }
+}
+
+/// <summary>
+/// 헤드바 관련 컨트롤러(헤드바 오브젝트 소환 등)
+/// </summary>
+public class HeadBarController : BaseController
+{
+    public HeadBarController(GameModel gameModel) : base(gameModel) {}
+
+    public K Spawn<T, K>(CharacterObject characterObject, int id) where T : HeadBar where K : HeadBarObject
+    {
+        var headBarObj = Spawn<T, K>(id, CameraSystem.Instance.TargetCamera.WorldToScreenPoint(characterObject.HeadBarNode.position), Quaternion.identity, StageManager.Instance.DynamicOverlayCanvas.transform);
+        var headBar = headBarObj.data as HeadBar;
+
+        headBar.TargetObj = characterObject;
+        headBarObj.transform.SetSiblingIndex(StageManager.Instance.PlayerStatsBar.transform.GetSiblingIndex()-1);
+
+        // 헤드바 데이터가 사라지면 대상이 가지고 있는 헤드바 오브젝트 데이터 null 처리
+        headBar.OnDataRemove += (data) => 
+        {
+            characterObject.HeadBarObject = null;
+        };
+
+        return headBarObj;
     }
 }

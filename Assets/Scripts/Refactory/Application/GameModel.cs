@@ -19,6 +19,7 @@ public class GameModel
         LoadCSV<StageInfo>("StageList", true);
         LoadCSV<Player>("PlayerList");
         LoadCSV<Enemy>("EnemyList");
+        LoadCSV<HeadBar>("HeadBarList");
 
         ClientData.PlayerLanguage = LoadJson<PlayerLanguage>(ClientData.PlayerLanguageFileName);
     }

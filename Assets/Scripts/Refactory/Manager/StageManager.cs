@@ -12,6 +12,9 @@ public class StageManager : LocalSingleton<StageManager>
     [SerializeField] private PlayerStatsBar playerStatsBar;   // 체력, 마나 등의 정보를 담은 UI바
     public PlayerStatsBar PlayerStatsBar => playerStatsBar;
 
+    [SerializeField] private Canvas dynamicOverlayCanvas;  // 동적 오버레이 캔버스
+    public Canvas DynamicOverlayCanvas => dynamicOverlayCanvas;
+
     private void Start()
     {
         Init();
@@ -35,6 +38,12 @@ public class StageManager : LocalSingleton<StageManager>
         var playerObj = GameApplication.Instance.GameController.PlayerController.Spawn<Player, PlayerObject>(
             stagePlayerInfo.EntityId, new Vector2(stagePlayerInfo.SpawnPointX, stagePlayerInfo.SpawnPointY), Quaternion.identity
         );
+
+        var player = playerObj.data as Player;
+        player.OnChangeCurrentHp += (updateHp) => 
+        {
+            PlayerStatsBar.UpdateUI();
+        };
 
         playerStatsBar.Init();
         return playerObj;
