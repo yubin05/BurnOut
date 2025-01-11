@@ -118,6 +118,9 @@ public class CharacterObject : EntityObject
             FSM.ChangeState(new HitState(this));
             ImmunitySystem.StartImmunity(character.BasicStat.StaggerDuration);
         }
+
+        // 데미지 폰트 소환
+        GameApplication.Instance.GameController.DamageFontController.Spawn<DamageFont, DamageFontObject>(this, 60001, attackPower);
     }
 
     // 죽습니다.

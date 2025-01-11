@@ -31,6 +31,9 @@ public class StageManager : LocalSingleton<StageManager>
     // 플레이어 캐릭터를 소환합니다.
     public PlayerObject SpawnPlayer()
     {
+        var playerInfos = GameApplication.Instance.GameModel.RuntimeData.ReturnDatas<Player>(nameof(Player));
+        foreach (var playerInfo in playerInfos) playerInfo.RemoveData();
+
         var stageInfos = GameApplication.Instance.GameModel.PresetData.ReturnDatas<StageInfo>(nameof(StageInfo)).Where(x => x.StageId == stageId);
         var stagePlayerInfos = stageInfos.Where(x => x.Type == StageInfo.Types.Player);
 
@@ -64,6 +67,9 @@ public class StageManager : LocalSingleton<StageManager>
     // 스테이지 정보에 따른 적들을 소환합니다.
     public EnemyObject[] SpawnEnemys()
     {
+        var enemyInfos = GameApplication.Instance.GameModel.RuntimeData.ReturnDatas<Enemy>(nameof(Enemy));
+        foreach (var enemyInfo in enemyInfos) enemyInfo.RemoveData();
+
         var stageInfos = GameApplication.Instance.GameModel.PresetData.ReturnDatas<StageInfo>(nameof(StageInfo)).Where(x => x.StageId == stageId).ToArray();
         var stageEnemyInfos = stageInfos.Where(x => x.Type == StageInfo.Types.Enemy);
 
@@ -82,6 +88,9 @@ public class StageManager : LocalSingleton<StageManager>
     // 스테이지 백그라운드 음악을 재생합니다.
     public SoundObject PlayBGM()
     {
+        var soundInfos = GameApplication.Instance.GameModel.RuntimeData.ReturnDatas<SoundInfo>(nameof(SoundInfo));
+        foreach (var soundInfo in soundInfos) soundInfo.RemoveData();
+
         var stageInfos = GameApplication.Instance.GameModel.PresetData.ReturnDatas<StageInfo>(nameof(StageInfo)).Where(x => x.StageId == stageId).ToArray();
         var stageSoundInfos = stageInfos.Where(x => x.Type == StageInfo.Types.Sound);
 

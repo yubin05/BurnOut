@@ -92,6 +92,7 @@ Transform:
   m_Children:
   - {fileID: 426505959036926584}
   - {fileID: 4287074993183329041}
+  - {fileID: 8328660867098196822}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -110,6 +111,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8279116720520690536}
   animator: {fileID: 5696679799961832800}
   attackNode: {fileID: 4287074993183329041}
+  headBarNode: {fileID: 8328660867098196822}
 --- !u!114 &7374465249908706029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +171,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6723606, y: 1.4475071}
   m_EdgeRadius: 0
+--- !u!1 &5398508427909167944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8328660867098196822}
+  m_Layer: 0
+  m_Name: HeadBarNode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8328660867098196822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5398508427909167944}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4554834805683292189}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6199858029937447813
 GameObject:
   m_ObjectHideFlags: 0

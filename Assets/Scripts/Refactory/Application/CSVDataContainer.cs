@@ -43,8 +43,9 @@ public class CSVDataContainer
     {
         if (!dataTables.ContainsKey(dataTableName))
         {
-            Debug.LogWarning($"{dataTableName} 테이블이 존재하지 않습니다.");
-            return null;
+            // Debug.LogWarning($"{dataTableName} 테이블이 존재하지 않습니다.");
+            T[] nullValues = new T[0];
+            return nullValues;
         }
         
         var dataTable = dataTables[dataTableName];

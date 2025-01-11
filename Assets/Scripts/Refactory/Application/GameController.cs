@@ -12,6 +12,7 @@ public class GameController
     public PlayerController PlayerController { get; private set; }
     public EnemyController EnemyController { get; private set; }
     public HeadBarController HeadBarController { get; private set; }
+    public DamageFontController DamageFontController { get; private set; }
 
     public void Init(GameModel gameModel)
     {
@@ -19,6 +20,7 @@ public class GameController
         PlayerController = new PlayerController(gameModel);
         EnemyController = new EnemyController(gameModel);
         HeadBarController = new HeadBarController(gameModel);
+        DamageFontController = new DamageFontController(gameModel);
     }
 }
 
@@ -41,16 +43,16 @@ public abstract class BaseController
 
         K obj = Pooling.Instance.CreatePoolObject<K>(id);   // 오브젝트 풀링 가져오기
         obj.transform.SetParent(parent);
-        if (parent == null)
-        {
+        // if (parent == null)
+        // {
             obj.transform.position = position;
             obj.transform.rotation = rotation;
-        }
-        else
-        {
-            obj.transform.localPosition = position;
-            obj.transform.localRotation = rotation;
-        }
+        // }
+        // else
+        // {
+        //     obj.transform.localPosition = position;
+        //     obj.transform.localRotation = rotation;
+        // }
         obj.Init(data);
 
         data.OnDataRemove = null;
@@ -163,5 +165,30 @@ public class HeadBarController : BaseController
         };
 
         return headBarObj;
+    }
+}
+
+/// <summary>
+/// 데미지 폰트 관련 컨트롤러(데미지 폰트 오브젝트 소환 등)
+/// </summary>
+public class DamageFontController : BaseController
+{
+    public DamageFontController(GameModel gameModel) : base(gameModel) {}
+
+    public K Spawn<T, K>(CharacterObject characterObject, int id, int hitDamage) where T : DamageFont where K : DamageFontObject
+    {
+        var damageFontObj = Spawn<T, K>(id, CameraSystem.Instance.TargetCamera.WorldToScreenPoint(characterObject.HeadBarNode.position), Quaternion.identity, StageManager.Instance.DynamicOverlayCanvas.transform);
+        var damageFont = damageFontObj.data as DamageFont;
+
+        damageFont.HitDamage = hitDamage;
+        damageFontObj.SetDamageTxt();
+
+        damageFont.InitWorldPositon = characterObject.HeadBarNode.position;
+        var pos = damageFont.InitWorldPositon; pos.y += damageFont.MoveWorldPosY;
+        damageFont.EndWorldPosition = pos;
+        
+        damageFontObj.transform.SetAsFirstSibling();
+
+        return damageFontObj;
     }
 }
