@@ -34,8 +34,8 @@ public class StageManager : LocalSingleton<StageManager>
         var playerInfos = GameApplication.Instance.GameModel.RuntimeData.ReturnDatas<Player>(nameof(Player));
         foreach (var playerInfo in playerInfos) playerInfo.RemoveData();
 
-        var stageInfos = GameApplication.Instance.GameModel.PresetData.ReturnDatas<StageInfo>(nameof(StageInfo)).Where(x => x.StageId == stageId);
-        var stagePlayerInfos = stageInfos.Where(x => x.Type == StageInfo.Types.Player);
+        var stageInfos = GameApplication.Instance.GameModel.PresetData.ReturnDatas<StageEntityInfo>(nameof(StageEntityInfo)).Where(x => x.StageId == stageId);
+        var stagePlayerInfos = stageInfos.Where(x => x.Type == StageEntityInfo.Types.Player);
 
         var stagePlayerInfo = stagePlayerInfos.First();
         var playerObj = GameApplication.Instance.GameController.PlayerController.Spawn<Player, PlayerObject>(
@@ -54,7 +54,7 @@ public class StageManager : LocalSingleton<StageManager>
 
     public void StartCameraTracking(CharacterObject characterObject, bool forceMove=false)
     {
-        CameraSystem.Instance.StartTracking(characterObject, forceMove); // 카메라가 캐릭터를 따라갑니다.
+        CameraSystem.Instance.StartTracking(StageId, characterObject, forceMove); // 카메라가 캐릭터를 따라갑니다.
 
         var character = characterObject.data as Character;
         character.OnDataRemove += (character) => 
@@ -69,8 +69,8 @@ public class StageManager : LocalSingleton<StageManager>
         var enemyInfos = GameApplication.Instance.GameModel.RuntimeData.ReturnDatas<Enemy>(nameof(Enemy));
         foreach (var enemyInfo in enemyInfos) enemyInfo.RemoveData();
 
-        var stageInfos = GameApplication.Instance.GameModel.PresetData.ReturnDatas<StageInfo>(nameof(StageInfo)).Where(x => x.StageId == stageId).ToArray();
-        var stageEnemyInfos = stageInfos.Where(x => x.Type == StageInfo.Types.Enemy);
+        var stageInfos = GameApplication.Instance.GameModel.PresetData.ReturnDatas<StageEntityInfo>(nameof(StageEntityInfo)).Where(x => x.StageId == stageId).ToArray();
+        var stageEnemyInfos = stageInfos.Where(x => x.Type == StageEntityInfo.Types.Enemy);
 
         var enemyObjs = new List<EnemyObject>();
         foreach (var stageEnemyInfo in stageEnemyInfos)
@@ -90,8 +90,8 @@ public class StageManager : LocalSingleton<StageManager>
         var soundInfos = GameApplication.Instance.GameModel.RuntimeData.ReturnDatas<SoundInfo>(nameof(SoundInfo));
         foreach (var soundInfo in soundInfos) soundInfo.RemoveData();
 
-        var stageInfos = GameApplication.Instance.GameModel.PresetData.ReturnDatas<StageInfo>(nameof(StageInfo)).Where(x => x.StageId == stageId).ToArray();
-        var stageSoundInfos = stageInfos.Where(x => x.Type == StageInfo.Types.Sound);
+        var stageInfos = GameApplication.Instance.GameModel.PresetData.ReturnDatas<StageEntityInfo>(nameof(StageEntityInfo)).Where(x => x.StageId == stageId).ToArray();
+        var stageSoundInfos = stageInfos.Where(x => x.Type == StageEntityInfo.Types.Sound);
 
         var stageSoundInfo = stageSoundInfos.First();
         var soundObj = GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e8e98e8d1cc5bf46b2bcbfad5b73922, type: 3}
-  m_Name: StageList
+  m_Name: StageEntityList
   m_EditorClassIdentifier: 
   sheetId: 1K62w7H2ft31G9QD8Yw4RU3uYKkEcZnreR3W8PgonppI
-  gid: 1272623095
-  sheetName: StageList
+  gid: 1550958124
+  sheetName: StageEntityList

@@ -16,7 +16,8 @@ public class GameModel
         LoadCSV<SoundInfo>("SoundList");
         LoadCSV<PrefabInfo>("PrefabList");
         LoadCSV<CharacterStat>("CharacterStatList");
-        LoadCSV<StageInfo>("StageList", true);
+        LoadCSV<StageInfo>("StageList");
+        LoadCSV<StageEntityInfo>("StageEntityList", true);        
         LoadCSV<Player>("PlayerList");
         LoadCSV<Enemy>("EnemyList");
         LoadCSV<HeadBar>("HeadBarList");
