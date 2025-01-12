@@ -32,7 +32,7 @@ public class GameManager : GlobalSingleton<GameManager>
         Debug.Log(languageStr);
 
         // test
-        GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10001, Vector3.zero, Quaternion.identity);
+        // GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10001, Vector3.zero, Quaternion.identity);
     }
 
     private void Update()

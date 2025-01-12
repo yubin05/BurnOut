@@ -24,8 +24,8 @@ public class StageManager : LocalSingleton<StageManager>
     {
         var playerObj = SpawnPlayer();
         SpawnEnemys();
-        StartCameraTracking(playerObj);
-        PlayBGM();
+        StartCameraTracking(playerObj, true);
+        // PlayBGM();
     }
 
     // 플레이어 캐릭터를 소환합니다.
@@ -52,10 +52,9 @@ public class StageManager : LocalSingleton<StageManager>
         return playerObj;
     }
 
-    public void StartCameraTracking(CharacterObject characterObject)
+    public void StartCameraTracking(CharacterObject characterObject, bool forceMove=false)
     {
-        CameraSystem.Instance.Init();
-        CameraSystem.Instance.StartTracking(characterObject); // 카메라가 캐릭터를 따라갑니다.
+        CameraSystem.Instance.StartTracking(characterObject, forceMove); // 카메라가 캐릭터를 따라갑니다.
 
         var character = characterObject.data as Character;
         character.OnDataRemove += (character) => 

@@ -41,10 +41,20 @@ public class EnemyObject : CharacterObject
                 }
                 else
                 {
-                    OnMove(enemy.MoveDirectionX);
+                    var hits = Physics2D.RaycastAll(transform.position, new Vector2((int)enemy.MoveDirectionX, 0), 1f, LayerMask.GetMask(nameof(Floor)));
+                    // 앞에 floor가 있으면 점프
+                    if (hits.Length > 0 && !MotionHandler.IsJump)
+                    {
+                        OnJump();
+                    }
+                    // 앞에 floor가 없으면 이동
+                    else
+                    {
+                        OnMove(enemy.MoveDirectionX);
+                    }
                 }
             }
-        }        
+        }
     }
 
     public override void OnHit(int attackPower)

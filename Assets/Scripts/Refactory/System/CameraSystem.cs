@@ -11,11 +11,9 @@ public class CameraSystem : LocalSingleton<CameraSystem>
     public bool IsTracking { get; private set; }
     public CharacterObject TargetObject { get; private set; }
 
-    public void Init()
+    private void Awake()
     {
         targetCameraZ = TargetCamera.transform.position.z;
-        IsTracking = false;
-        TargetObject = null;
     }
 
     private void Update()
@@ -31,10 +29,11 @@ public class CameraSystem : LocalSingleton<CameraSystem>
     }
 
     // 카메라 트래킹을 시작합니다.
-    public void StartTracking(CharacterObject targetObject)
+    public void StartTracking(CharacterObject targetObject, bool forceMove=false)
     {
         IsTracking = true;
         SetTargetObject(targetObject);
+        if (forceMove) TargetCamera.transform.position = targetObject.transform.position;
     }
 
     // 카메라 트래킹을 멈춥니다.

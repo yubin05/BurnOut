@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerObject : CharacterObject
 {
+    [SerializeField] protected Transform floorCheckNode;
+    public Transform FloorCheckNode => floorCheckNode;
+
     public override void Init(Data data)
     {
         base.Init(data);
@@ -31,6 +34,19 @@ public class PlayerObject : CharacterObject
 
     private void Update()
     {
+        // floor 체크
+        var hitBoxs = Physics2D.OverlapBoxAll(FloorCheckNode.position, FloorCheckNode.localScale, 0f, LayerMask.GetMask(nameof(Floor)));
+        if (hitBoxs.Length > 0)
+        {
+            // Debug.Log("Ignore Floor");
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(nameof(Floor)), LayerMask.NameToLayer(nameof(Player)), true);
+        }
+        else
+        {
+            // Debug.Log("No Ignore Floor");
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(nameof(Floor)), LayerMask.NameToLayer(nameof(Player)), false);
+        }
+
         if (MotionHandler.IsHit || MotionHandler.IsDeath) return;
         
         if (Input.GetKeyDown(KeyCode.LeftControl))  // 공격

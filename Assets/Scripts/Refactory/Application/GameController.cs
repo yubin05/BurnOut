@@ -94,12 +94,12 @@ public class CharacterController : BaseController
         character.CurrentHp = character.BasicStat.MaxHp;
         
         // 캐릭터 데이터가 사라지면 캐릭터가 가지고 있던 헤드바 데이터도 삭제해줘야 함
-        character.OnDataRemove += (data) => 
-        {
-            var headBarObj = (characterObj as CharacterObject).HeadBarObject;
-            var headBar = headBarObj.data as HeadBar;
-            headBar.RemoveData();
-        };
+        // character.OnDataRemove += (data) => 
+        // {
+        //     var headBarObj = (characterObj as CharacterObject).HeadBarObject;
+        //     var headBar = headBarObj.data as HeadBar;
+        //     headBar.RemoveData();
+        // };
 
         return characterObj;
     }
@@ -138,6 +138,14 @@ public class EnemyController : CharacterController
         var enemy = enemyObj.data as Enemy;
         
         enemy.AttackTargets = LayerMask.GetMask(nameof(Player));
+
+        // 캐릭터 데이터가 사라지면 캐릭터가 가지고 있던 헤드바 데이터도 삭제해줘야 함
+        enemy.OnDataRemove += (data) => 
+        {
+            var headBarObj = (enemyObj as CharacterObject).HeadBarObject;
+            var headBar = headBarObj.data as HeadBar;
+            headBar.RemoveData();
+        };
 
         return enemyObj;
     }
