@@ -32,8 +32,10 @@ public class PlayerObject : CharacterObject
         transform.ChangeLayerRecursively(nameof(Player));
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+        
         // floor 체크
         var hitBoxs = Physics2D.OverlapBoxAll(FloorCheckNode.position, FloorCheckNode.localScale, 0f, LayerMask.GetMask(nameof(Floor)));
         if (hitBoxs.Length > 0)
@@ -53,15 +55,15 @@ public class PlayerObject : CharacterObject
         {
             OnAttack();
         }
-        else if (!MotionHandler.IsJump && Input.GetKeyDown(KeyCode.LeftAlt))  // 점프
+        else if (!MotionHandler.IsAttack && !MotionHandler.IsJump && Input.GetKeyDown(KeyCode.LeftAlt))  // 점프
         {
             OnJump();
         }
-        else if (Input.GetKey(KeyCode.RightArrow))   // 오른쪽으로 이동
+        else if (!MotionHandler.IsAttack && Input.GetKey(KeyCode.RightArrow))   // 오른쪽으로 이동
         {
             OnMove(Character.MoveDirectionXs.Right);
         }
-        else if (Input.GetKey(KeyCode.LeftArrow))   // 왼쪽으로 이동
+        else if (!MotionHandler.IsAttack && Input.GetKey(KeyCode.LeftArrow))   // 왼쪽으로 이동
         {
             OnMove(Character.MoveDirectionXs.Left);
         }        

@@ -19,7 +19,7 @@ public class CameraSystem : LocalSingleton<CameraSystem>
         targetCameraZ = TargetCamera.transform.position.z;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (!IsTracking) return;
 

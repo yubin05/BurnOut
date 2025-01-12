@@ -17,7 +17,10 @@ public class AttackState : BaseState
 
     public override void OnStateExit(CharacterObject characterObject)
     {
-        // 공격 도중에 다른 모션으로 변경이 가능해야 함
-        characterObject.MotionHandler.EndAttack();
+        // 공격이 끝난 후, 점프 중이면 점프 모션으로 변경
+        if (characterObject.MotionHandler.IsJump)
+        {
+            characterObject.MotionHandler.StartJump();
+        }
     }
 }

@@ -10,14 +10,18 @@ public class EnemyObject : CharacterObject
 
         var enemy = data as Enemy;
         enemy.Init(this);
-
-        enemy.MoveDirectionX = Character.MoveDirectionXs.Left;
+        
+        // enemy.MoveDirectionX = Character.MoveDirectionXs.Left;
+        var rand = new int[2] { -1, 1 };
+        enemy.MoveDirectionX = (Character.MoveDirectionXs)rand[UnityEngine.Random.Range(0, rand.Length)];
 
         transform.ChangeLayerRecursively(nameof(Enemy));
     }
 
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (MotionHandler.IsDeath) return;
         
         var enemy = data as Enemy;
@@ -42,10 +46,18 @@ public class EnemyObject : CharacterObject
                 else
                 {
                     var hits = Physics2D.RaycastAll(transform.position, new Vector2((int)enemy.MoveDirectionX, 0), 1f, LayerMask.GetMask(nameof(Floor)));
-                    // 앞에 floor가 있으면 점프
+                    // 앞에 floor가 있으면 확률적으로 점프, 그렇지 않으면 반대로 이동
                     if (hits.Length > 0 && !MotionHandler.IsJump)
                     {
-                        OnJump();
+                        var rand = UnityEngine.Random.Range(0, 100);
+                        if (rand >= enemy.JumpRate)
+                        {
+                            OnJump();
+                        }                            
+                        else
+                        {
+                            enemy.ChangeDirectionX();
+                        }
                     }
                     // 앞에 floor가 없으면 이동
                     else

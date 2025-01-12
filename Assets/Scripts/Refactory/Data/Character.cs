@@ -42,10 +42,22 @@ public class Character : Entity
     // 현재 체력 변화할 때마다 호출할 이벤트
     public event Action<int> OnChangeCurrentHp;
 
+    // 공격 딜레이 - 공격 속도 반영
+    public float AttackDelayTime { get; set; }
+
     public override void Init(EntityObject myObject)
     {
         base.Init(myObject);
 
         OnChangeCurrentHp = null;
+        AttackDelayTime = 0f;
+    }
+
+    // 방향 전환
+    public void ChangeDirectionX()
+    {
+        var diretionX = (int)MoveDirectionX;
+        diretionX *= -1;
+        MoveDirectionX = (Character.MoveDirectionXs)diretionX;
     }
 }

@@ -8,6 +8,7 @@ public class HitState : BaseState
 
     public override void OnStateEnter(CharacterObject characterObject)
     {
+        characterObject.MotionHandler.EndAttack();  // 공격 도중 맞으면 IsAttack이 해제되지 않으므로 임의로 해제
         characterObject.MotionHandler.StartHit();
     }
 

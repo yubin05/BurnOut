@@ -1,2 +1,2 @@
-Id,MoveType
-30001,0
+Id,MoveType,JumpRate
+30001,0,50

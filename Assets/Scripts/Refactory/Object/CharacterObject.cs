@@ -71,6 +71,12 @@ public class CharacterObject : EntityObject
         HeadBarObject = null;
     }
 
+    protected virtual void Update()
+    {
+        var character = data as Character;
+        character.AttackDelayTime += Time.deltaTime;
+    }
+
     // 가만히 있습니다.
     public virtual void OnIdle()
     {
@@ -80,8 +86,7 @@ public class CharacterObject : EntityObject
     // 이동합니다.
     public virtual void OnMove(Character.MoveDirectionXs moveDirectionX)
     {
-        if (!MotionHandler.IsJump)
-            FSM.ChangeState(new MoveState(this));
+        FSM.ChangeState(new MoveState(this));
 
         var character = data as Character;
         character.MoveDirectionX = moveDirectionX;
@@ -100,7 +105,12 @@ public class CharacterObject : EntityObject
     // 공격합니다.
     public virtual void OnAttack()
     {
-        FSM.ChangeState(new AttackState(this));
+        var character = data as Character;
+        if (character.AttackDelayTime >= 1f/character.BasicStat.AttackSpeed)
+        {
+            FSM.ChangeState(new AttackState(this));
+            character.AttackDelayTime = 0f;
+        }
     }
 
     // 피격 당합니다.
