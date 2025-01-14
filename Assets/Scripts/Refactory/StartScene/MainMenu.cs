@@ -10,12 +10,20 @@ public class MainMenu : View<MainMenuPresenter, MainMenuModel>
     [Header("텍스트")]
     [SerializeField] private List<TextMeshProUGUI> mainMenuTxts;
 
+    [Header("컨텐츠")]
+    [SerializeField] private OptionMenu optionMenu;
+
     private void Update()
     {
         // 메뉴 선택
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            presenter.SelectMenu();
+            switch (presenter.MainMenuSelectIndex)
+            {
+                case 0: SceneManager.LoadScene(SceneName.TestStage); break;
+                case 1: OnHide(); optionMenu.Init(); break;
+                case 2: GameManager.Instance.QuitGame(); break;
+            }
         }
 
         // 위로 이동
@@ -38,6 +46,8 @@ public class MainMenu : View<MainMenuPresenter, MainMenuModel>
         }
 
         SelectMenuUI(model.mainMenuSelectIndex);
+
+        optionMenu.OnHide();
     }
 
     // 메뉴 선택 표시해주는 함수 - 선택한 옵션 빨간색으로 표시
@@ -47,12 +57,14 @@ public class MainMenu : View<MainMenuPresenter, MainMenuModel>
         {
             if (i == index) mainMenuTxts[i].color = Color.red;
             else mainMenuTxts[i].color = Color.white;
-        }        
+        }
     }
 }
 
 public class MainMenuPresenter : Presenter<MainMenuModel>
 {
+    public int MainMenuSelectIndex => model.mainMenuSelectIndex;
+
     // 메뉴 선택 변경해주는 함수
     public int ChangeSelectIndex(int direction)    // -1: 아래, 1: 위
     {
@@ -63,20 +75,10 @@ public class MainMenuPresenter : Presenter<MainMenuModel>
         }
         else if (direction == 1)
         {
-            if (--selectIndex < 0) selectIndex=model.mainMenuTxtIds.Count-1;            
+            if (--selectIndex < 0) selectIndex=model.mainMenuTxtIds.Count-1;    
         }
         model.mainMenuSelectIndex = selectIndex;
         return model.mainMenuSelectIndex;
-    }
-
-    // 메뉴 선택하는 함수
-    public void SelectMenu()
-    {
-        switch (model.mainMenuSelectIndex)
-        {
-            case 0: SceneManager.LoadScene(SceneName.TestStage); break;
-            case 2: GameManager.Instance.QuitGame(); break;
-        }
     }
 }
 

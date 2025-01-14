@@ -74,6 +74,23 @@ public class SoundController : BaseController
     public SoundController(GameModel gameModel) : base(gameModel)
     {
     }
+
+    public override K Spawn<T, K>(int id, Vector3 position, Quaternion rotation, Transform parent = null)
+    {
+        var soundObj = base.Spawn<T, K>(id, position, rotation, parent);
+        var sound = soundObj.data as SoundInfo;
+
+        switch (sound.Type)
+        {
+            case SoundInfo.Types.BGM: default: (soundObj as SoundObject).AudioSource.volume = GameModel.ClientData.PlayerSound.bgm; break;
+            case SoundInfo.Types.SFX: (soundObj as SoundObject).AudioSource.volume = GameModel.ClientData.PlayerSound.sfx; break;
+        }
+
+        return soundObj;
+    }
+
+    public void ChangeBGMVolume(float volume) => GameManager.Instance.ChangeBGMVolume(volume);
+    public void ChangeSFXVolume(float volume) => GameManager.Instance.ChangeSFXVolume(volume);
 }
 
 /// <summary>

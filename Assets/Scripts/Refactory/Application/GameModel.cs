@@ -24,6 +24,7 @@ public class GameModel
         LoadCSV<DamageFont>("DamageFontList");
 
         ClientData.PlayerLanguage = LoadJson<PlayerLanguage>(ClientData.PlayerLanguageFileName);
+        ClientData.PlayerSound = LoadJson<PlayerSound>(ClientData.PlayerSoundFileName);
     }
 
     private void LoadCSV<T>(string _fileName, bool autoIndexing=false) where T : Data

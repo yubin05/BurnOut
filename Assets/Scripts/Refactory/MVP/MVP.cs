@@ -19,6 +19,8 @@ public abstract class View<P, M> : MonoBehaviour, IView<M> where P : Presenter<M
     {
         presenter = new P();
         presenter.Init(this);
+
+        OnShow();
     }
 
     public virtual void UpdateUI()
@@ -28,6 +30,16 @@ public abstract class View<P, M> : MonoBehaviour, IView<M> where P : Presenter<M
     }
 
     public abstract void UpdateUI(M model);
+
+    public virtual void OnShow()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public virtual void OnHide()
+    {
+        gameObject.SetActive(false);
+    }
 }
 
 /// <summary>

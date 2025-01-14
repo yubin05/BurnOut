@@ -25,7 +25,7 @@ public class StageManager : LocalSingleton<StageManager>
         var playerObj = SpawnPlayer();
         SpawnEnemys();
         StartCameraTracking(playerObj, true);
-        // PlayBGM();
+        PlayBGM();
     }
 
     // 플레이어 캐릭터를 소환합니다.
