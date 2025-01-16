@@ -13,6 +13,7 @@ public class GameController
     public EnemyController EnemyController { get; private set; }
     public HeadBarController HeadBarController { get; private set; }
     public DamageFontController DamageFontController { get; private set; }
+    public VFXController VFXController { get; private set; }
 
     public void Init(GameModel gameModel)
     {
@@ -21,6 +22,7 @@ public class GameController
         EnemyController = new EnemyController(gameModel);
         HeadBarController = new HeadBarController(gameModel);
         DamageFontController = new DamageFontController(gameModel);
+        VFXController = new VFXController(gameModel);
     }
 }
 
@@ -43,16 +45,16 @@ public abstract class BaseController
 
         K obj = Pooling.Instance.CreatePoolObject<K>(id);   // 오브젝트 풀링 가져오기
         obj.transform.SetParent(parent);
-        // if (parent == null)
-        // {
+        if (parent == null)
+        {
             obj.transform.position = position;
             obj.transform.rotation = rotation;
-        // }
-        // else
-        // {
-        //     obj.transform.localPosition = position;
-        //     obj.transform.localRotation = rotation;
-        // }
+        }
+        else
+        {
+            obj.transform.localPosition = position;
+            obj.transform.localRotation = rotation;
+        }
         obj.Init(data);
 
         data.OnDataRemove = null;
@@ -109,6 +111,7 @@ public class CharacterController : BaseController
 
         character.BasicStat = GameModel.PresetData.ReturnData<CharacterStat>(nameof(CharacterStat), id).Clone() as CharacterStat;
         character.CurrentHp = character.BasicStat.MaxHp;
+        character.CurrentMp = character.BasicStat.MaxMp;
         
         // 캐릭터 데이터가 사라지면 캐릭터가 가지고 있던 헤드바 데이터도 삭제해줘야 함
         // character.OnDataRemove += (data) => 
@@ -216,4 +219,9 @@ public class DamageFontController : BaseController
 
         return damageFontObj;
     }
+}
+
+public class VFXController : BaseController
+{
+    public VFXController(GameModel gameModel) : base(gameModel) {}
 }

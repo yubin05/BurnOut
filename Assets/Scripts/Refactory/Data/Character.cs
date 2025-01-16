@@ -42,15 +42,40 @@ public class Character : Entity
     // 현재 체력 변화할 때마다 호출할 이벤트
     public event Action<int> OnChangeCurrentHp;
 
+    // 캐릭터가 가지고 있는 현재 마나
+    protected int currentMp;
+    public int CurrentMp
+    { 
+        get { return currentMp; }
+        set
+        {
+            var preCurrentMp = currentMp;
+            currentMp = value;
+            if (preCurrentMp != currentMp) OnChangeCurrentMp?.Invoke(currentMp);
+        }
+    }
+    // 현재 마나 변화할 때마다 호출할 이벤트
+    public event Action<int> OnChangeCurrentMp;
+
     // 공격 딜레이 - 공격 속도 반영
     public float AttackDelayTime { get; set; }
+
+    public bool IsDoubleJump { get; set; }  // 더블 점프 중인지 체크
+
+    // 스킬
+    public Skills Skills { get; set; }
 
     public override void Init(EntityObject myObject)
     {
         base.Init(myObject);
 
         OnChangeCurrentHp = null;
+        OnChangeCurrentMp = null;
         AttackDelayTime = 0f;
+
+        IsDoubleJump = false;
+
+        Skills = new Skills(this);
     }
 
     // 방향 전환

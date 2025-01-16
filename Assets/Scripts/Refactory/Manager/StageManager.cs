@@ -47,6 +47,10 @@ public class StageManager : LocalSingleton<StageManager>
         {
             PlayerStatsBar.UpdateUI();
         };
+        player.OnChangeCurrentMp += (updateMp) => 
+        {
+            PlayerStatsBar.UpdateUI();
+        };
 
         playerStatsBar.Init();
         return playerObj;

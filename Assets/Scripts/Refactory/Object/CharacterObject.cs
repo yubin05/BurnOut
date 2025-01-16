@@ -17,6 +17,12 @@ public class CharacterObject : EntityObject
     [SerializeField] protected Transform headBarNode;
     public Transform HeadBarNode => headBarNode;
 
+    [SerializeField] protected Transform floorCheckNode;
+    public Transform FloorCheckNode => floorCheckNode;
+
+    [SerializeField] protected Transform backNode;  // 등
+    public Transform BackNode => backNode;
+
     public MotionHandler MotionHandler { get; protected set; }
     
     public Rigidbody2D Rigidbody2D { get; protected set; }

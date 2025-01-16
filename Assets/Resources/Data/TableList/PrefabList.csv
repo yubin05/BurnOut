@@ -2,7 +2,13 @@ Id,Path
 10001,Prefabs/SoundObject/TestBGM
 10002,Prefabs/SoundObject/TestSFX
 10003,Prefabs/SoundObject/StageBGM
+10004,Prefabs/SoundObject/PlayerAttack
+10005,Prefabs/SoundObject/PlayerHit
+10006,Prefabs/SoundObject/PlayerDeath
+10007,Prefabs/SoundObject/SlimeHit
+10008,Prefabs/SoundObject/SlimeDeath
 20001,Prefabs/Character/Player
 30001,Prefabs/Character/Slime
 50001,Prefabs/UI/HeadBarObject/BasicHeadBar
 60001,Prefabs/UI/DamageFontObject/BasicDamageFont
+70001,Prefabs/VFX/PlayerDoubleJump

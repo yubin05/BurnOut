@@ -9,13 +9,17 @@ public class Platform : MonoBehaviour, ICollision2D
         var characterObject = other.transform.GetComponent<CharacterObject>();
         if (characterObject != null)
         {
-            var rigid = characterObject.GetComponent<Rigidbody2D>();
-            // 땅에 착지했을 때만 점프가 끝났다고 판정
-            // 발판 옆에 닿은 경우는 점프가 끝난 것이 아님
-            if (rigid.velocity == Vector2.zero) 
+            characterObject.MotionHandler.EndJump();
+
+            if (characterObject is PlayerObject)
             {
-                characterObject.MotionHandler.EndJump();
+                var playerObj = characterObject as PlayerObject;
+                var player = playerObj.data as Player;
+                player.IsDoubleJump = false;
             }
+
+            // 착지하는 순간, 미끄러짐 등을 방지하기 위해 순간적으로 속력 한번 초기화
+            characterObject.Rigidbody2D.velocity = Vector3.zero;
         }
     }
 

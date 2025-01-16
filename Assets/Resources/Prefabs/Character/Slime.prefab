@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 5249883617798594176}
   - component: {fileID: 7486257616094861713}
   - component: {fileID: 5911754494870256327}
-  - component: {fileID: 3387584913908251342}
+  - component: {fileID: 1039945708211807035}
   - component: {fileID: 8564574276522242293}
   m_Layer: 8
   m_Name: Slime
@@ -234,7 +234,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0949223, y: 0.6926327}
   m_EdgeRadius: 0
---- !u!114 &3387584913908251342
+--- !u!114 &1039945708211807035
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5249883616842458382}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b953633976dfb1479f815e428161abb, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c16e57eb90ea1d41b15cec9113607cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4653416872163702265}

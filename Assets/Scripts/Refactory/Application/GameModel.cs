@@ -17,11 +17,13 @@ public class GameModel
         LoadCSV<PrefabInfo>("PrefabList");
         LoadCSV<CharacterStat>("CharacterStatList");
         LoadCSV<StageInfo>("StageList");
-        LoadCSV<StageEntityInfo>("StageEntityList", true);        
+        LoadCSV<StageEntityInfo>("StageEntityList", true);
         LoadCSV<Player>("PlayerList");
         LoadCSV<Enemy>("EnemyList");
         LoadCSV<HeadBar>("HeadBarList");
         LoadCSV<DamageFont>("DamageFontList");
+        LoadCSV<VFX>("VFXList");
+        LoadCSV<SkillInfo>("SkillList");
 
         ClientData.PlayerLanguage = LoadJson<PlayerLanguage>(ClientData.PlayerLanguageFileName);
         ClientData.PlayerSound = LoadJson<PlayerSound>(ClientData.PlayerSoundFileName);

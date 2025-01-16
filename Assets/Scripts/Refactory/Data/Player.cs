@@ -7,5 +7,7 @@ public class Player : Character
     public override void Init(EntityObject myObject)
     {
         base.Init(myObject);
+
+        Skills.AddSkill(new DoubleJump(80001));
     }
 }

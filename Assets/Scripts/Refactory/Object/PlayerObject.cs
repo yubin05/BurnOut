@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerObject : CharacterObject
 {
-    [SerializeField] protected Transform floorCheckNode;
-    public Transform FloorCheckNode => floorCheckNode;
-
     public override void Init(Data data)
     {
         base.Init(data);
@@ -25,6 +22,14 @@ public class PlayerObject : CharacterObject
                     enemyObj.OnHit(player.BasicStat.AttackDamage);
                 }
             }
+
+            // 공격 사운드
+            GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10004, Vector3.zero, Quaternion.identity);
+        };
+
+        MotionHandler.HitEvent += () => 
+        {
+            GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10005, Vector3.zero, Quaternion.identity);
         };
 
         player.MoveDirectionX = Character.MoveDirectionXs.Right;
@@ -32,24 +37,27 @@ public class PlayerObject : CharacterObject
         transform.ChangeLayerRecursively(nameof(Player));
     }
 
-    protected override void Update()
+    protected virtual void FixedUpdate()
     {
-        base.Update();
-        
         // floor 체크
         var hitBoxs = Physics2D.OverlapBoxAll(FloorCheckNode.position, FloorCheckNode.localScale, 0f, LayerMask.GetMask(nameof(Floor)));
         if (hitBoxs.Length > 0)
         {
-            // Debug.Log("Ignore Floor");
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(nameof(Floor)), LayerMask.NameToLayer(nameof(Player)), true);
         }
         else
         {
-            // Debug.Log("No Ignore Floor");
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(nameof(Floor)), LayerMask.NameToLayer(nameof(Player)), false);
         }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
 
         if (MotionHandler.IsHit || MotionHandler.IsDeath) return;
+
+        var player = data as Player;
         
         if (Input.GetKeyDown(KeyCode.LeftControl))  // 공격
         {
@@ -59,17 +67,28 @@ public class PlayerObject : CharacterObject
         {
             OnJump();
         }
-        else if (!MotionHandler.IsAttack && Input.GetKey(KeyCode.RightArrow))   // 오른쪽으로 이동
+        else if (!MotionHandler.IsAttack && MotionHandler.IsJump && !player.IsDoubleJump && Input.GetKeyDown(KeyCode.LeftAlt))  // 더블 점프
+        {
+            player.Skills.Use(80001);
+        }
+        else if (!MotionHandler.IsAttack && !player.IsDoubleJump && Input.GetKey(KeyCode.RightArrow))   // 오른쪽으로 이동
         {
             OnMove(Character.MoveDirectionXs.Right);
         }
-        else if (!MotionHandler.IsAttack && Input.GetKey(KeyCode.LeftArrow))   // 왼쪽으로 이동
+        else if (!MotionHandler.IsAttack && !player.IsDoubleJump && Input.GetKey(KeyCode.LeftArrow))   // 왼쪽으로 이동
         {
             OnMove(Character.MoveDirectionXs.Left);
-        }        
+        }
         else if (!MotionHandler.IsJump && !MotionHandler.IsAttack)
         {
             OnIdle();
         }
+    }
+
+    public override void OnDeath()
+    {
+        base.OnDeath();
+
+        GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10006, Vector3.zero, Quaternion.identity);
     }
 }
