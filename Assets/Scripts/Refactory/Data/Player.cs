@@ -9,5 +9,6 @@ public class Player : Character
         base.Init(myObject);
 
         Skills.AddSkill(new DoubleJump(80001));
+        Skills.AddSkill(new DarkMagic(80002));
     }
 }

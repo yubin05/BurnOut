@@ -3,5 +3,6 @@
 /// </summary>
 public class SkillInfo : Data
 {
+    public int Power { get; set; }
     public int Cost { get; set; }
 }

@@ -112,14 +112,9 @@ public class CharacterController : BaseController
         character.BasicStat = GameModel.PresetData.ReturnData<CharacterStat>(nameof(CharacterStat), id).Clone() as CharacterStat;
         character.CurrentHp = character.BasicStat.MaxHp;
         character.CurrentMp = character.BasicStat.MaxMp;
-        
-        // 캐릭터 데이터가 사라지면 캐릭터가 가지고 있던 헤드바 데이터도 삭제해줘야 함
-        // character.OnDataRemove += (data) => 
-        // {
-        //     var headBarObj = (characterObj as CharacterObject).HeadBarObject;
-        //     var headBar = headBarObj.data as HeadBar;
-        //     headBar.RemoveData();
-        // };
+
+        // 캐릭터 마나 자동 충전
+        character.StartChargeMp();
 
         return characterObj;
     }

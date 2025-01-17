@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -38,5 +40,16 @@ public class Skills
         }
 
         SkillDatas[skillId].Use(Caster);
+    }
+    public void Use<T>() where T : Skill
+    {
+        var skillData = SkillDatas.Values.Where(x => x is T).FirstOrDefault();
+        if (skillData == null)
+        {
+            Debug.LogWarning($"{skillData}는 스킬 컨테이너에 존재하지 않습니다.");
+            return;
+        }
+
+        skillData.Use(Caster);
     }
 }

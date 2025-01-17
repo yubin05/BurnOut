@@ -35,7 +35,7 @@ public class Character : Entity
         set
         {
             var preCurrentHp = currentHp;
-            currentHp = value;
+            currentHp = Mathf.Clamp(value, 0, BasicStat.MaxHp);
             if (preCurrentHp != currentHp) OnChangeCurrentHp?.Invoke(currentHp);
         }
     }
@@ -50,7 +50,7 @@ public class Character : Entity
         set
         {
             var preCurrentMp = currentMp;
-            currentMp = value;
+            currentMp = Mathf.Clamp(value, 0, BasicStat.MaxMp);
             if (preCurrentMp != currentMp) OnChangeCurrentMp?.Invoke(currentMp);
         }
     }
@@ -65,6 +65,9 @@ public class Character : Entity
     // 스킬
     public Skills Skills { get; set; }
 
+    // 마나 자연 회복 코루틴
+    public Coroutine CChargeMp { get; protected set; }
+
     public override void Init(EntityObject myObject)
     {
         base.Init(myObject);
@@ -76,6 +79,7 @@ public class Character : Entity
         IsDoubleJump = false;
 
         Skills = new Skills(this);
+        CChargeMp = null;
     }
 
     // 방향 전환
@@ -84,5 +88,20 @@ public class Character : Entity
         var diretionX = (int)MoveDirectionX;
         diretionX *= -1;
         MoveDirectionX = (Character.MoveDirectionXs)diretionX;
+    }
+
+    // 자동 마나 충전
+    public void StartChargeMp()
+    {
+        if (CChargeMp != null) MyObject.StopCoroutine(CChargeMp);
+        CChargeMp = MyObject.StartCoroutine(ChangeMpProcess());
+    }
+    protected IEnumerator ChangeMpProcess()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(BasicStat.MpChargeSecond);
+            CurrentMp += BasicStat.MpChargeValue;
+        }        
     }
 }
