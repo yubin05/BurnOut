@@ -23,7 +23,7 @@ public class GameManager : GlobalSingleton<GameManager>
     {
         // test
         var language = GameApplication.Instance.GameModel.ClientData.PlayerLanguage.language;
-        var textInfo = GameApplication.Instance.GameModel.PresetData.ReturnData<TextInfo>(nameof(TextInfo), 1);
+        var textInfo = GameApplication.Instance.GameModel.PresetData.ReturnData<TextInfo>(nameof(TextInfo), 1001);
         string languageStr = "";
         switch (language)
         {

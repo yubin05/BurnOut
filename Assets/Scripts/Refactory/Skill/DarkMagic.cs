@@ -8,12 +8,7 @@ public class DarkMagic : Skill
 
     public override void Use(Character caster)
     {
-        if (caster.CurrentMp < SkillData.Cost)
-        {
-            Debug.LogWarning($"{caster}의 마나가 부족합니다.");
-            return;
-        }
-        caster.CurrentMp -= SkillData.Cost;
+        if (!CheckSkill(caster)) return;
 
         var hitBoxs = Physics2D.OverlapBoxAll(caster.MyObject.transform.position, Vector2.one*10f, 0, caster.AttackTargets);
         foreach (var hitBox in hitBoxs)

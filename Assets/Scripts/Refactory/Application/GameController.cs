@@ -216,6 +216,9 @@ public class DamageFontController : BaseController
     }
 }
 
+/// <summary>
+/// VFX 관련 컨트롤러(VFX 오브젝트 소환 등)
+/// </summary>
 public class VFXController : BaseController
 {
     public VFXController(GameModel gameModel) : base(gameModel) {}

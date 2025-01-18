@@ -8,12 +8,7 @@ public class DoubleJump : Skill
 
     public override void Use(Character caster)
     {
-        if (caster.CurrentMp < SkillData.Cost)
-        {
-            Debug.LogWarning($"{caster}의 마나가 부족합니다.");
-            return;
-        }
-        caster.CurrentMp -= SkillData.Cost;
+        if (!CheckSkill(caster)) return;
 
         var casterObj = caster.MyObject as CharacterObject;
         caster.IsDoubleJump = true;

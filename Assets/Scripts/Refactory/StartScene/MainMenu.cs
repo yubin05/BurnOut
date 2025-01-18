@@ -84,6 +84,6 @@ public class MainMenuPresenter : Presenter<MainMenuModel>
 
 public class MainMenuModel : Model
 {
-    public List<int> mainMenuTxtIds = new List<int>() { 1, 3, 4 };
+    public List<int> mainMenuTxtIds = new List<int>() { 1001, 1003, 1004 };
     public int mainMenuSelectIndex = 0;
 }

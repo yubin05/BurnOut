@@ -28,5 +28,5 @@ public class MainCanvasPresenter : Presenter<MainCanvasModel>
 // Model
 public class MainCanvasModel : Model
 {
-    public int titleTextInfoId = 2;
+    public int titleTextInfoId = 1002;
 }

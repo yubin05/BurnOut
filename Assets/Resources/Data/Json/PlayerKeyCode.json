@@ -1,0 +1,15 @@
+[
+    {
+        "playerKeyCodes":
+        [
+            {
+                "Id":80001,
+                "KeyCodeId":308
+            },
+            {
+                "Id":80002,
+                "KeyCodeId":113
+            }
+        ]
+    }
+]

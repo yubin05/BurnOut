@@ -24,9 +24,11 @@ public class GameModel
         LoadCSV<DamageFont>("DamageFontList");
         LoadCSV<VFX>("VFXList");
         LoadCSV<SkillInfo>("SkillList");
+        LoadCSV<IconInfo>("IconList");
 
         ClientData.PlayerLanguage = LoadJson<PlayerLanguage>(ClientData.PlayerLanguageFileName);
         ClientData.PlayerSound = LoadJson<PlayerSound>(ClientData.PlayerSoundFileName);
+        ClientData.PlayerKeyCodes = LoadJson<PlayerKeyCodes>(ClientData.PlayerKeyCodeFileName);
     }
 
     private void LoadCSV<T>(string _fileName, bool autoIndexing=false) where T : Data
