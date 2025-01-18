@@ -15,6 +15,7 @@ public class SkillBar : View<SkillBarPresenter, SkillBarModel>
         {
             var comp = Instantiate(skillIcon, parent);
             comp.SkillId = skillData.Key; comp.Init();
+            
             skillData.Value.CoolDownSystem.OneTimeEvent += () => 
             {
                 comp.UpdateCoolTimeInfo(skillData.Value);

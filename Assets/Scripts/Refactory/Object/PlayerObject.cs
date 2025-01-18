@@ -66,7 +66,8 @@ public class PlayerObject : CharacterObject
         else if (Input.GetKeyDown(KeyCode.Q))
         {
             // player.Skills.Use(80002);
-            player.Skills.Use<DarkMagic>();
+            // player.Skills.Use<DarkMagic>();
+            player.Skills.Use(GameApplication.Instance.GameModel.ClientData.PlayerKeyCodes.playerKeyCodes.Find(x => x.KeyCodeId == (int)KeyCode.Q).Id);
         }
         else if (!MotionHandler.IsAttack && !MotionHandler.IsJump && Input.GetKeyDown(KeyCode.LeftAlt))  // 점프
         {
@@ -75,7 +76,8 @@ public class PlayerObject : CharacterObject
         else if (!MotionHandler.IsAttack && MotionHandler.IsJump && !player.IsDoubleJump && Input.GetKeyDown(KeyCode.LeftAlt))  // 더블 점프
         {
             // player.Skills.Use(80001);
-            player.Skills.Use<DoubleJump>();
+            // player.Skills.Use<DoubleJump>();
+            player.Skills.Use(GameApplication.Instance.GameModel.ClientData.PlayerKeyCodes.playerKeyCodes.Find(x => x.KeyCodeId == (int)KeyCode.LeftAlt).Id);
         }
         else if (!MotionHandler.IsAttack && !player.IsDoubleJump && Input.GetKey(KeyCode.RightArrow))   // 오른쪽으로 이동
         {

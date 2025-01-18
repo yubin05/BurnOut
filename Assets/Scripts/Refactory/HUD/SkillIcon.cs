@@ -23,6 +23,7 @@ public class SkillIcon : View<SkillIconPresenter, SkillIconModel>
         coolTimeTxt.gameObject.SetActive(false);
     }
 
+    // 스킬 쿨타임 정보 표기 - CoolDownSystem의 OneTimeEvent에 등록하여 호출
     public void UpdateCoolTimeInfo(Skill skill)
     {
         var coolDownSystem = skill.CoolDownSystem;
