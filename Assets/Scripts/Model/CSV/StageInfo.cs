@@ -9,4 +9,5 @@ public class StageInfo : Data
     public float CameraMaxX { get; set; }
     public float CameraMinY { get; set; }
     public float CameraMaxY { get; set; }
+    public float EnemySpawnTime { get; set; }
 }

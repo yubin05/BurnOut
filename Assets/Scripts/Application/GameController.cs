@@ -118,6 +118,18 @@ public class CharacterController : BaseController
 
         return characterObj;
     }
+
+    // 죽은 후, 다시 소환할때 사용
+    public virtual K ReSpawn<T, K>(int id, Vector3 position, Quaternion rotation, Transform parent = null) where T : Character where K : CharacterObject
+    {
+        var characterObj = Spawn<T, K>(id, position, rotation, parent);
+        var character = characterObj.data as Character;
+
+        // 다시 부활할 때는 잠깐 동안 무적 부여
+        characterObj.ImmunitySystem.StartImmunity(character.BasicStat.RespawnImmunityTime);
+
+        return characterObj;
+    }
 }
 /// <summary>
 /// 플레이어 관련 컨트롤러(플레이어 오브젝트 소환 등)

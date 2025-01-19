@@ -14,11 +14,19 @@ public class DarkMagic : Skill
         foreach (var hitBox in hitBoxs)
         {
             var targetObj = hitBox.GetComponent<CharacterObject>();
-            if (targetObj != null)
+            if (targetObj != null && !targetObj.ImmunitySystem.IsImmunity)
             {
                 targetObj.OnHit(SkillData.Power);
                 targetObj.DebuffSystem.StartDebuff(GameApplication.Instance.GameModel.PresetData.ReturnData<VFX>(nameof(VFX), SkillData.VFXId).LifeTime);
-                GameApplication.Instance.GameController.VFXController.Spawn<VFX, VFXObject>(SkillData.VFXId, Vector3.zero, Quaternion.identity, targetObj.transform);
+                var vfxObj = GameApplication.Instance.GameController.VFXController.Spawn<VFX, VFXObject>(SkillData.VFXId, Vector3.zero, Quaternion.identity, targetObj.transform);
+
+                var target = targetObj.data as Character;
+                // 대상 캐릭터가 죽으면 소환했던 VFX 오브젝트 삭제
+                target.OnDataRemove += (data) => 
+                {
+                    var vfx = vfxObj.data as VFX;
+                    vfx.RemoveData();
+                };
             }
         }
     }

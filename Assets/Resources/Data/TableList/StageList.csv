@@ -1,2 +1,2 @@
-Id,CameraMinX,CameraMaxX,CameraMinY,CameraMaxY
-40001,-8,8,-5,5
+Id,CameraMinX,CameraMaxX,CameraMinY,CameraMaxY,EnemySpawnTime
+40001,-8,8,-5,5,5

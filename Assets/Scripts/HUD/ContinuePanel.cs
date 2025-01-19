@@ -24,7 +24,7 @@ public class ContinuePanel : View<ContinuePanelPresenter, ContinuePanelModel>
         yesBtn.onClick.RemoveAllListeners();
         yesBtn.onClick.AddListener(() => 
         {
-            StageManager.Instance.RespawnPlayer();
+            StageManager.Instance.SpawnPlayer(true);
         });
 
         noBtn.onClick.RemoveAllListeners();
