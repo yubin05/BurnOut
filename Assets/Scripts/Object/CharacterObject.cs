@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ImmunitySystem))]
+[RequireComponent(typeof(DebuffSystem))]
 public class CharacterObject : EntityObject
 {
     [SerializeField] protected SpriteRenderer spriteRenderer;
@@ -28,6 +29,7 @@ public class CharacterObject : EntityObject
     public Rigidbody2D Rigidbody2D { get; protected set; }
 
     public ImmunitySystem ImmunitySystem { get; protected set; }
+    public DebuffSystem DebuffSystem { get; protected set; }
 
     public HeadBarObject HeadBarObject { get; set; }  // 대상이 가지고 있는 헤드바 오브젝트
 
@@ -36,6 +38,7 @@ public class CharacterObject : EntityObject
         Rigidbody2D = GetComponent<Rigidbody2D>();
         MotionHandler = animator.transform.GetComponent<MotionHandler>();
         ImmunitySystem = GetComponent<ImmunitySystem>();
+        DebuffSystem = GetComponent<DebuffSystem>();
     }
 
     public FSM FSM { get; protected set; }
@@ -55,6 +58,7 @@ public class CharacterObject : EntityObject
         MotionHandler.Init();
         MotionHandler.DeathEvent += () => 
         {
+            ImmunitySystem.StopImmunity();
             character.RemoveData();
         };
 
@@ -73,6 +77,8 @@ public class CharacterObject : EntityObject
             color.a = originAlpha;
             SpriteRenderer.color = color;
         };
+
+        DebuffSystem.Init();
 
         HeadBarObject = null;
     }
@@ -122,6 +128,9 @@ public class CharacterObject : EntityObject
     // 피격 당합니다.
     public virtual void OnHit(int attackPower)
     {
+        // 디버프 적용
+        if (DebuffSystem.IsDebuff) attackPower = (int)(attackPower * 1.5f);
+
         var character = data as Character;
         character.CurrentHp = Mathf.Max(0, character.CurrentHp-attackPower);
 

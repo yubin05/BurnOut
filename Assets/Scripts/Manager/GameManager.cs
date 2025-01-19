@@ -19,22 +19,22 @@ public class GameManager : GlobalSingleton<GameManager>
         Pooling.Instance.Init();
     }
 
-    private void Start()
-    {
-        // test
-        var language = GameApplication.Instance.GameModel.ClientData.PlayerLanguage.language;
-        var textInfo = GameApplication.Instance.GameModel.PresetData.ReturnData<TextInfo>(nameof(TextInfo), 1001);
-        string languageStr = "";
-        switch (language)
-        {
-            case TextInfo.LanguageTypes.English: languageStr = textInfo.NameEn; break;
-            default: languageStr = textInfo.NameKr; break;  // 한국어
-        }
-        Debug.Log(languageStr);
+    // private void Start()
+    // {
+    //     // test
+    //     var language = GameApplication.Instance.GameModel.ClientData.PlayerLanguage.language;
+    //     var textInfo = GameApplication.Instance.GameModel.PresetData.ReturnData<TextInfo>(nameof(TextInfo), 1001);
+    //     string languageStr = "";
+    //     switch (language)
+    //     {
+    //         case TextInfo.LanguageTypes.English: languageStr = textInfo.NameEn; break;
+    //         default: languageStr = textInfo.NameKr; break;  // 한국어
+    //     }
+    //     Debug.Log(languageStr);
 
-        // test
-        GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10001, Vector3.zero, Quaternion.identity);
-    }
+    //     // test
+    //     GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10001, Vector3.zero, Quaternion.identity);
+    // }
 
     private void Update()
     {
@@ -44,15 +44,15 @@ public class GameManager : GlobalSingleton<GameManager>
         }
 
         // test
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10002, Vector3.zero, Quaternion.identity);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            var soundInfos = GameApplication.Instance.GameModel.RuntimeData.ReturnDatas<SoundInfo>(nameof(SoundInfo));
-            if (soundInfos != null) Debug.Log(soundInfos.Length);
-        }
+        // if (Input.GetKeyDown(KeyCode.Alpha1))
+        // {
+        //     GameApplication.Instance.GameController.SoundController.Spawn<SoundInfo, SoundObject>(10002, Vector3.zero, Quaternion.identity);
+        // }
+        // if (Input.GetKeyDown(KeyCode.Alpha2))
+        // {
+        //     var soundInfos = GameApplication.Instance.GameModel.RuntimeData.ReturnDatas<SoundInfo>(nameof(SoundInfo));
+        //     if (soundInfos != null) Debug.Log(soundInfos.Length);
+        // }
     }
 
     // 언어 변경

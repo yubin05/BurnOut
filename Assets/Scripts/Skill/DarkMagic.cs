@@ -17,7 +17,8 @@ public class DarkMagic : Skill
             if (targetObj != null)
             {
                 targetObj.OnHit(SkillData.Power);
-                GameApplication.Instance.GameController.VFXController.Spawn<VFX, VFXObject>(70002, Vector3.zero, Quaternion.identity, targetObj.transform);
+                targetObj.DebuffSystem.StartDebuff(GameApplication.Instance.GameModel.PresetData.ReturnData<VFX>(nameof(VFX), SkillData.VFXId).LifeTime);
+                GameApplication.Instance.GameController.VFXController.Spawn<VFX, VFXObject>(SkillData.VFXId, Vector3.zero, Quaternion.identity, targetObj.transform);
             }
         }
     }

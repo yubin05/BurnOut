@@ -107,6 +107,6 @@ public class OptionMenuModel : Model
     public int volumeTxtId = 1005;
     public int bgmTxtId = 1006;
     public int sfxTxtId = 1007;
-    public List<int> optionMenuTxtIds = new List<int>() { 8 };
+    public List<int> optionMenuTxtIds = new List<int>() { 1008 };
     public int optionMenuSelectIndex = 0;
 }

@@ -18,6 +18,9 @@ public class StageManager : LocalSingleton<StageManager>
     [SerializeField] private Canvas dynamicOverlayCanvas;  // 동적 오버레이 캔버스
     public Canvas DynamicOverlayCanvas => dynamicOverlayCanvas;
 
+    [SerializeField] private ContinuePanel continuePanel;   // 캐릭터 사망 시 뜨는 부활 메시지 패널
+    public ContinuePanel ContinuePanel => continuePanel;
+
     private void Start()
     {
         Init();
@@ -25,10 +28,16 @@ public class StageManager : LocalSingleton<StageManager>
 
     public void Init()
     {
-        var playerObj = SpawnPlayer();
+        RespawnPlayer();
         SpawnEnemys();
+        PlayBGM();        
+    }
+
+    public void RespawnPlayer()
+    {
+        var playerObj = SpawnPlayer();
         StartCameraTracking(playerObj, true);
-        PlayBGM();
+        ContinuePanel.OnHide();
     }
 
     // 플레이어 캐릭터를 소환합니다.
@@ -53,6 +62,11 @@ public class StageManager : LocalSingleton<StageManager>
         player.OnChangeCurrentMp += (updateMp) => 
         {
             PlayerStatsBar.UpdateUI();
+        };
+
+        player.OnDataRemove += (player) => 
+        {
+            ContinuePanel.Init();
         };
 
         playerStatsBar.Init();

@@ -41,4 +41,11 @@ public class ImmunitySystem : MonoBehaviour
         IsImmunity = false;
         OnStopImmunity?.Invoke();
     }
+    public void StopImmunity()
+    {
+        if (CImmunity != null) StopCoroutine(CImmunity);
+
+        IsImmunity = false;
+        OnStopImmunity?.Invoke();
+    }
 }
