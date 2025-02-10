@@ -6,14 +6,21 @@ using TMPro;
 
 public class OptionMenu : View<OptionMenuPresenter, OptionMenuModel>
 {
-    [Header("슬라이더")]
+    [Header("볼륨")]
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private Slider sfxSlider;
-
-    [Header("텍스트")]
     [SerializeField] private TextMeshProUGUI volumeTxt;
     [SerializeField] private TextMeshProUGUI bgmTxt;
     [SerializeField] private TextMeshProUGUI sfxTxt;
+
+    [Header("언어")]
+    [SerializeField] private TextMeshProUGUI languagetitleTxt;
+    [SerializeField] private List<TextMeshProUGUI> languageTxts;
+    [SerializeField] private List<Toggle> languageToggles;
+
+    [Header("텍스트")]
+    
+    
     [SerializeField] private List<TextMeshProUGUI> optionMenuTxts;
 
     [Header("컨텐츠")]
@@ -44,17 +51,7 @@ public class OptionMenu : View<OptionMenuPresenter, OptionMenuModel>
 
     public override void UpdateUI(OptionMenuModel model)
     {
-        volumeTxt.UpdateTextInfoName(model.volumeTxtId);
-        bgmTxt.UpdateTextInfoName(model.bgmTxtId);
-        sfxTxt.UpdateTextInfoName(model.sfxTxtId);
-
-        for (int i=0; i<optionMenuTxts.Count; i++)
-        {
-            optionMenuTxts[i].UpdateTextInfoName(model.optionMenuTxtIds[i]);
-        }
-
-        SelectMenuUI(model.optionMenuSelectIndex);
-
+        // 볼륨 관련 슬라이더 이벤트 설정
         bgmSlider.onValueChanged.RemoveAllListeners();
         bgmSlider.value = GameApplication.Instance.GameModel.ClientData.PlayerSound.bgm;
         bgmSlider.onValueChanged.AddListener((bgm) => 
@@ -68,6 +65,40 @@ public class OptionMenu : View<OptionMenuPresenter, OptionMenuModel>
         {
             GameApplication.Instance.GameController.SoundController.ChangeSFXVolume(sfx);
         });
+
+        // 볼륨 관련 텍스트 설정
+        volumeTxt.UpdateTextInfoName(model.volumeTxtId);
+        bgmTxt.UpdateTextInfoName(model.bgmTxtId);
+        sfxTxt.UpdateTextInfoName(model.sfxTxtId);
+
+        // 언어 관련 설정        
+        for (int i=0; i<languageToggles.Count; i++)
+        {
+            int index = i; var languageToggle = languageToggles[index];
+            languageToggle.onValueChanged.RemoveAllListeners();
+            languageToggle.onValueChanged.AddListener((isOn) => 
+            {
+                if (isOn) GameManager.Instance.ChanageLanauage((TextInfo.LanguageTypes)index);
+            });
+        }
+        languageToggles[(int)GameApplication.Instance.GameModel.ClientData.PlayerLanguage.language].isOn = true;
+
+        // 언어 관련 텍스트 설정
+        languagetitleTxt.UpdateTextInfoName(model.languageTitleTxtId);
+        for (int i=0; i<languageTxts.Count; i++)
+        {
+            var languageTxt = languageTxts[i];
+            languageTxt.UpdateTextInfoName(model.languageTxtIds[i]);
+        }
+
+        // 기타 옵션 메뉴 설정
+        SelectMenuUI(model.optionMenuSelectIndex);
+
+        // 기타 옵션 메뉴 텍스트 설정
+        for (int i=0; i<optionMenuTxts.Count; i++)
+        {
+            optionMenuTxts[i].UpdateTextInfoName(model.optionMenuTxtIds[i]);
+        }
     }
 
     // 메뉴 선택 표시해주는 함수 - 선택한 옵션 빨간색으로 표시
@@ -78,6 +109,11 @@ public class OptionMenu : View<OptionMenuPresenter, OptionMenuModel>
             if (i == index) optionMenuTxts[i].color = Color.red;
             else optionMenuTxts[i].color = Color.white;
         }
+    }
+
+    private void UpdateText()
+    {
+        
     }
 }
 
@@ -107,6 +143,10 @@ public class OptionMenuModel : Model
     public int volumeTxtId = 1005;
     public int bgmTxtId = 1006;
     public int sfxTxtId = 1007;
+
+    public int languageTitleTxtId = 1012;
+    public List<int> languageTxtIds = new List<int>() { 1013, 1014 };
+
     public List<int> optionMenuTxtIds = new List<int>() { 1008 };
     public int optionMenuSelectIndex = 0;
 }

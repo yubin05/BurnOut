@@ -60,12 +60,16 @@ public class GameManager : GlobalSingleton<GameManager>
     {
         GameApplication.Instance.GameModel.ClientData.PlayerLanguage.language = language;
 
+        // 데이터 저장
         var fileName = GameApplication.Instance.GameModel.ClientData.PlayerLanguageFileName;
         var extension = GameApplication.Instance.GameModel.JsonTable.Extension;
 
         var path = Application.persistentDataPath + "/" + DataTablePath.JsonFilePath + fileName + extension;
         var dataStr = "[" + JsonConvert.SerializeObject(GameApplication.Instance.GameModel.ClientData.PlayerLanguage) + "]";
         File.WriteAllText(path, dataStr);
+
+        // 언어 변경 적용
+        TextExtension.ChangeLanauage(language);
     }
 
     // BGM 데이터 변경

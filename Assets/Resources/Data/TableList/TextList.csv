@@ -8,5 +8,8 @@ Id,NameKr,DescriptionKr,NameEn,DescriptionEn
 1007,효과음,효과음,SFX,SFX
 1008,뒤로 가기,뒤로 가기,Back,Back
 1009,부활하시겠습니까?,부활하시겠습니까?,Continue?,Continue?
-1010,예,예,Yes,No
-1011,아니오,아니오,Yes,No
+1010,예,예,Yes,Yes
+1011,아니오,아니오,No,No
+1012,언어,언어,Language,Language
+1013,한국어,한국어,Korean,Korean
+1014,영어,영어,English,English
