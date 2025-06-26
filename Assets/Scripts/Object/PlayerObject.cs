@@ -58,7 +58,8 @@ public class PlayerObject : CharacterObject
         if (MotionHandler.IsHit || MotionHandler.IsDeath) return;
 
         var player = data as Player;
-        
+        var joystick = JoyStick.Instance;
+
         if (Input.GetKeyDown(KeyCode.LeftControl))  // 공격
         {
             OnAttack();
@@ -78,12 +79,12 @@ public class PlayerObject : CharacterObject
             // player.Skills.Use(80001);
             // player.Skills.Use<DoubleJump>();
             player.Skills.Use(GameApplication.Instance.GameModel.ClientData.PlayerKeyCodes.playerKeyCodes.Find(x => x.KeyCodeId == (int)KeyCode.LeftAlt).Id);
-        }
-        else if (!MotionHandler.IsAttack && !player.IsDoubleJump && Input.GetKey(KeyCode.RightArrow))   // 오른쪽으로 이동
+        }        
+        else if (!MotionHandler.IsAttack && !player.IsDoubleJump && joystick && joystick.JoystickAnchorPos.x > joystick.JoyStickMinRange/*Input.GetKey(KeyCode.RightArrow)*/)   // 오른쪽으로 이동
         {
             OnMove(Character.MoveDirectionXs.Right);
         }
-        else if (!MotionHandler.IsAttack && !player.IsDoubleJump && Input.GetKey(KeyCode.LeftArrow))   // 왼쪽으로 이동
+        else if (!MotionHandler.IsAttack && !player.IsDoubleJump && joystick && joystick.JoystickAnchorPos.x < -joystick.JoyStickMinRange/*Input.GetKey(KeyCode.LeftArrow)*/)   // 왼쪽으로 이동
         {
             OnMove(Character.MoveDirectionXs.Left);
         }
