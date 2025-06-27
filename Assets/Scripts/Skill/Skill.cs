@@ -32,7 +32,9 @@ public abstract class Skill
         }
         if (caster.CurrentMp < SkillData.Cost)
         {
-            Debug.LogWarning($"{caster}의 마나가 부족합니다.");
+            //Debug.LogWarning($"{caster}의 마나가 부족합니다.");
+            var message = Message.Instance;
+            if (message != null) message.Init(1015, TextInfo.Types.Desc);   // 마나가 부족하면 메시지 띄우는 방식으로 변경
             return false;
         }        
 

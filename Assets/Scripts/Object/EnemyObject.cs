@@ -11,7 +11,6 @@ public class EnemyObject : CharacterObject
         var enemy = data as Enemy;
         enemy.Init(this);
         
-        // enemy.MoveDirectionX = Character.MoveDirectionXs.Left;
         var rand = new int[2] { -1, 1 };
         enemy.MoveDirectionX = (Character.MoveDirectionXs)rand[UnityEngine.Random.Range(0, rand.Length)];
 
@@ -42,6 +41,9 @@ public class EnemyObject : CharacterObject
                             playerObj.OnHit(enemy.BasicStat.AttackDamage);
                         }
                     }
+
+                    // 공격해도 계속 이동하는 방식으로 변경
+                    OnMove(enemy.MoveDirectionX);
                 }
                 else
                 {

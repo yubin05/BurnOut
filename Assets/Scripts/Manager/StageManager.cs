@@ -12,9 +12,6 @@ public class StageManager : LocalSingleton<StageManager>
     [SerializeField] private PlayerStatsBar playerStatsBar;   // 체력, 마나 등의 정보를 담은 UI바
     public PlayerStatsBar PlayerStatsBar => playerStatsBar;
 
-    [SerializeField] private SkillBar playerSkillBar;   // 스킬 정보 등을 담은 UI바
-    public SkillBar PlayerSkillBar => playerSkillBar;
-
     [SerializeField] private Canvas dynamicOverlayCanvas;  // 동적 오버레이 캔버스
     public Canvas DynamicOverlayCanvas => dynamicOverlayCanvas;
 
@@ -84,7 +81,6 @@ public class StageManager : LocalSingleton<StageManager>
         };
 
         playerStatsBar.Init();
-        playerSkillBar.Init();
         return playerObj;
     }
 

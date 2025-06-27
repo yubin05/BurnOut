@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// 모든 게임 컨트롤러를 모아놓은 클래스
@@ -112,9 +113,6 @@ public class CharacterController : BaseController
         character.BasicStat = GameModel.PresetData.ReturnData<CharacterStat>(nameof(CharacterStat), id).Clone() as CharacterStat;
         character.CurrentHp = character.BasicStat.MaxHp;
         character.CurrentMp = character.BasicStat.MaxMp;
-
-        // 캐릭터 마나 자동 충전
-        character.StartChargeMp();
 
         return characterObj;
     }

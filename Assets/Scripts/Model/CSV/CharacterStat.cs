@@ -12,6 +12,8 @@ public class CharacterStat : Data
     public float JumpPower { get; set; }
     public float StaggerDuration { get; set; }
     public float RespawnImmunityTime { get; set; }
+    public float HpChargeSecond { get; set; }
+    public int HpChargeValue { get; set; }
     public float MpChargeSecond { get; set; }
     public int MpChargeValue { get; set; }
 }

@@ -34,6 +34,8 @@ public class PlayerObject : CharacterObject
 
         player.MoveDirectionX = Character.MoveDirectionXs.Right;
 
+        var skillButton1 = SkillButton1.Instance; skillButton1?.Init(80002); // DarkMagic
+
         transform.ChangeLayerRecursively(nameof(Player));
     }
 
@@ -60,27 +62,30 @@ public class PlayerObject : CharacterObject
         var player = data as Player;
         var joystick = JoyStick.Instance;
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))  // 공격
+        // AttackButton.cs로 이동
+        /*if (Input.GetKeyDown(KeyCode.LeftControl))  // 공격
         {
             OnAttack();
-        }
-        else if (Input.GetKeyDown(KeyCode.Q))
+        }*/
+        // SkillButton1.cs로 이동
+        /*elseif (Input.GetKeyDown(KeyCode.Q))
         {
             // player.Skills.Use(80002);
             // player.Skills.Use<DarkMagic>();
             player.Skills.Use(GameApplication.Instance.GameModel.ClientData.PlayerKeyCodes.playerKeyCodes.Find(x => x.KeyCodeId == (int)KeyCode.Q).Id);
-        }
-        else if (!MotionHandler.IsAttack && !MotionHandler.IsJump && Input.GetKeyDown(KeyCode.LeftAlt))  // 점프
+        }*/
+        // JumpButton.cs로 이동
+        /*else if (!MotionHandler.IsAttack && !MotionHandler.IsJump && Input.GetKeyDown(KeyCode.LeftAlt))  // 점프
         {
             OnJump();
-        }
-        else if (!MotionHandler.IsAttack && MotionHandler.IsJump && !player.IsDoubleJump && Input.GetKeyDown(KeyCode.LeftAlt))  // 더블 점프
+        }*/
+        /*else if (!MotionHandler.IsAttack && MotionHandler.IsJump && !player.IsDoubleJump && Input.GetKeyDown(KeyCode.LeftAlt))  // 더블 점프
         {
             // player.Skills.Use(80001);
             // player.Skills.Use<DoubleJump>();
             player.Skills.Use(GameApplication.Instance.GameModel.ClientData.PlayerKeyCodes.playerKeyCodes.Find(x => x.KeyCodeId == (int)KeyCode.LeftAlt).Id);
-        }        
-        else if (!MotionHandler.IsAttack && !player.IsDoubleJump && joystick && joystick.JoystickAnchorPos.x > joystick.JoyStickMinRange/*Input.GetKey(KeyCode.RightArrow)*/)   // 오른쪽으로 이동
+        }*/
+        /*else */if (!MotionHandler.IsAttack && !player.IsDoubleJump && joystick && joystick.JoystickAnchorPos.x > joystick.JoyStickMinRange/*Input.GetKey(KeyCode.RightArrow)*/)   // 오른쪽으로 이동
         {
             OnMove(Character.MoveDirectionXs.Right);
         }
